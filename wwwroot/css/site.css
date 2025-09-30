@@ -1,31 +1,58 @@
-html {
-  font-size: 14px;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-style: normal;
+  
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: #D9D9D9;
+  border-bottom: solid 1px #000;
+  padding: 50px;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.sanibell-container {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  font-size: 48px;
+  letter-spacing: 5px;
+  
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.sani {
+  color: #000;
 }
 
-body {
-  margin-bottom: 60px;
+.bell {
+  color:#666;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
+.button-container {
+  width: 50px;
+  height: 50px;
+  background-color: #666;
+  border-radius: 10px;
+  border: solid 1px #000;
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+}
+ img {
+  height: 48px;
+  width: 48px;
+ }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
 }
