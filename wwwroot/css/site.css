@@ -34,14 +34,6 @@ background-image: linear-gradient(to right, #000 0 50%, #666 50% 100%);
 background-clip: text;
 }
 
-.sani {
-  color: #000;
-}
-
-.bell {
-  color:#666;
-}
-
 .button-container {
   width: 50px;
   height: 50px;
