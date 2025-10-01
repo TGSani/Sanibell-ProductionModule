@@ -20,6 +20,7 @@ header {
   border-bottom: solid 1px #000;
   text-align: center;
   padding: 25px;
+  
 }
 
 .sanibell-container {
@@ -36,7 +37,7 @@ header {
   justify-content: center;
   width: 60%;
   height: 100px;
-  font-size: 48px;
+  font-size: 42px;
 }
 
 
@@ -73,6 +74,11 @@ header {
   width: 48px;
 }
 
+.login-icon {
+  height: 150px;
+  width: 150px;
+}
+
 /* utilities */
 .text-center {
   text-align: center;
@@ -101,7 +107,7 @@ a {
 
 
 /* Login tiles*/
-.tiles {
+.tiles  {
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -136,6 +142,31 @@ a {
   font-size: 12px;
 }
 
+.welcome-container {
+  display: flex;
+  margin: auto;
+  padding-top: 50px;
+  width: 250px;
+  height: 250px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.scan-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scan-text {
+  font-size: 48px;
+}
+
+.scan-text-p {
+  font-size: 24px;
+}
+
 
 /* Footer */
 .footer {
@@ -148,8 +179,11 @@ a {
   background-color: #D9D9D9;
 }
 
-
-
+@media screen and (max-width: 790px) {
+  .sanibell-header-text{
+    display:none
+  }  
+}
 
 
 /* Fonts */

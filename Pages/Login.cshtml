@@ -3,5 +3,51 @@
 @{
     ViewData["Title"] = "Login page";
 }
+<div class="welcome-container">
+    <img  class="login-icon" src="icons/User.png" />
+    <h2 class="text-center">Welkom @(Model.Users != null ? Model.Users.Naam : "")!</h2>
+</div>
 
-<h1 class="text-center padding-25">Welkom @(Model.Users != null ? Model.Users.Naam : "")</h1>
+<div class="scan-container padding-25">
+    <h1 class="scan-text text-center">Scan hier uw QR code</h1>
+    <p class="scan-text-p text-center tile-divider">Houd uw QR code voor de scanner</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <input asp-for="ScannedQRValue" id="QRinput" type="hidden"/>
+</form>
+
+
+@if (!ModelState.IsValid) {
+    <p class="text-center" style="color:red;">@ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage</p>
+}
+
+<!-- onzichtbaar inloggen (als het goed is weet ik hoe een scanner werkt) ---> 
+@section Scripts {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const qrInput = document.getElementById("QRinput");
+
+        // Focus automatisch op het inputveld (ook al is het verborgen)
+        qrInput.focus();
+
+        // Luister naar toetsenbordinput (bijvoorbeeld van een QR-scanner die als keyboard werkt)
+        let buffer = "";
+
+        document.addEventListener("keypress", function (e) {
+            // Stop als een echte submit al bezig is
+            if (qrInput.disabled) return;
+
+            // QR-scanners eindigen vaak met Enter → dan submitten we
+            if (e.key === "Enter") {
+                qrInput.value = buffer;
+                buffer = "";
+                document.querySelector("form").submit();
+            } else {
+                buffer += e.key;
+            }
+        });
+    });
+</script>
+}
