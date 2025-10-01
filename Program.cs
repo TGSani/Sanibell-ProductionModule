@@ -4,6 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// DI voor tijdelijke mockdata om login te populate
 builder.Services.AddScoped<IUsersService, MockUsersService>();
 
 var app = builder.Build();

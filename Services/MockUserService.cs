@@ -11,7 +11,13 @@ public class MockUsersService : IUsersService
         new Users { Id = 2, Naam = "Pietje", Rol = "User"},
         new Users { Id = 3, Naam = "Frank", Rol = "Planner"},
         new Users { Id = 4, Naam = "Thomas", Rol = "User"},
-        new Users { Id = 5, Naam = "Sebastiaan", Rol = "Planner"}
+        new Users { Id = 5, Naam = "Sebastiaan", Rol = "Planner"},
+        new Users { Id = 6, Naam = "Gerrit", Rol = "Admin"},
+        new Users { Id = 7, Naam = "Patrick", Rol = "User"},
+        new Users { Id = 8, Naam = "Koen", Rol = "Planner"},
+        new Users { Id = 9, Naam = "Tim", Rol = "User"},
+        new Users { Id = 11, Naam = "Hendrick-jan", Rol = "Tester"},
+        new Users { Id = 10, Naam = "Marie-Louise", Rol = "Planner"}
     };
 
     public List<Users> GetAllUsers() => _Users;

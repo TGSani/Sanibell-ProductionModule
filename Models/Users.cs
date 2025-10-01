@@ -1,7 +1,7 @@
 namespace Sanibell_ProductionModule.Models;
 
 
-//tijdelijke "mockdata" class tot de verbinding word gemaakt met KING
+// laat de minimale data zien die ik wil gebruiken
 public class Users
 {
     public int Id { get; set; }

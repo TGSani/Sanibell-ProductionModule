@@ -5,9 +5,13 @@
   font-family: "Poppins";
   font-weight: 400;
   font-style: normal;
-  
+
+  /*debug border want ik heb geen idee wat ik doe */
+  /* border: solid 1px red; */
+
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -25,33 +29,89 @@ header {
   height: 100px;
   font-size: 48px;
   letter-spacing: 5px;
-  
+
 }
 
 .sanibell-header-text {
-background-image: linear-gradient(to right, #000 0 50%, #666 50% 100%);
--webkit-text-fill-color: transparent;
-background-clip: text;
+  background-image: linear-gradient(to right, #000 0 50%, #666 50% 100%);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.button-container {
+/* Icon / img (niet zeker of dit moet blijven)*/
+/* .icon-container {
   width: 50px;
   height: 50px;
   background-color: #666;
   border-radius: 10px;
   border: solid 1px #000;
+} */
 
-}
- img {
+.icon {
   height: 48px;
   width: 48px;
- }
+  border-radius: 10px;
+  border: solid 1px #000;
+}
 
+.user-icon {
+  height: 48px;
+  width: 48px;
+}
+
+/* utilities */
+.text-center {
+  text-align: center;
+}
+
+.padding-25 {
+  padding: 25px;
+}
+
+
+/* Login tiles*/
+.tiles {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.tile-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: solid 3px #000;
+  width: 150px;
+  height: 150px;
+  background-color: #D9D9D9;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile-username {
+  font-size: 24px;
+  text-align: center;
+}
+
+.tile-divider{
+  border-top: 1px solid #000;
+}
+
+.tile-role {
+  font-size: 12px;
+}
+
+
+/* Footer */
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px;
+  line-height: 20px;
   padding-left: 15px;
+  background-color: #D9D9D9;
 }

@@ -4,18 +4,15 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="text-center padding-25">Selecteer uw profiel</h1>
 
-
-<div>Selecteer uw profiel</div>
-
+<div class="tiles">
 <!-- hier word voor elke user een tile aangemaakt -->
 @foreach (Models.Users users in Model.Users) {
-    <div class="tile">
-        <h4>@users.Naam</h4>
-        <p>@users.Rol</p>
+    <div class="tile-container">
+        <img class="user-icon" src="icons\User.png" />
+        <h4 class="tile-username">@users.Naam</h4>
+        <p class="tile-role tile-divider">@users.Rol</p>
     </div>
 }
+</div>
