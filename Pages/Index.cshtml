@@ -9,10 +9,12 @@
 <div class="tiles">
 <!-- hier word voor elke user een tile aangemaakt -->
 @foreach (Models.Users users in Model.Users) {
-    <div class="tile-container">
-        <img class="user-icon" src="icons\User.png" />
-        <h4 class="tile-username">@users.Naam</h4>
-        <p class="tile-role tile-divider">@users.Rol</p>
-    </div>
+    <a asp-page="/Login">
+        <div class="tile-container shadowbox">
+            <img class="user-icon" src="icons\User.png" />
+            <h4 class="tile-username">@users.Naam</h4>
+            <p class="tile-role tile-divider">@users.Rol</p>
+        </div>
+    </a>
 }
 </div>
