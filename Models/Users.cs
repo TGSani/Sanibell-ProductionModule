@@ -7,4 +7,5 @@ public class Users
     public int Id { get; set; }
     public required string Naam { get; set; }
     public required string Rol { get; set; }
+    public required string QRcode { get; set; }
 }

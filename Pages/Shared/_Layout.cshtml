@@ -15,8 +15,11 @@
         <div class="sanibell-container">
             <h4 class="sanibell-header-text">SANIBELL</h4>
         </div>
+        <div class="title-container">
+            <h4 class="page-title">@ViewData[ "Title"]</h4>
+        </div>
         @* mijn fout, dit kan niet op de header komen, wil andere knoppen gebruiken. ergens in body zetten.
-        <div class="button-container"><img class="icon" src="icons\Exit.png" /></div> *@
+        <div class="icon-container"><img class="icon" src="icons\Exit.png" /></div> *@
     </header>
     <div class="RenderBody">
         <main>
@@ -26,6 +29,7 @@
 
     <footer class="footer">
         <div>
+            
             &copy; @DateTime.UtcNow.Year  SANIBELL - Production Module
         </div>
     </footer>

@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "";
 }
 
 <h1 class="text-center padding-25">Selecteer uw profiel</h1>
@@ -9,7 +9,7 @@
 <div class="tiles">
 <!-- hier word voor elke user een tile aangemaakt -->
 @foreach (Models.Users users in Model.Users) {
-    <a asp-page="/Login">
+    <a asp-page="/Login" asp-route-id="@users.Id">
         <div class="tile-container shadowbox">
             <img class="user-icon" src="icons\User.png" />
             <h4 class="tile-username">@users.Naam</h4>

@@ -19,5 +19,10 @@ namespace Sanibell_ProductionModule.Pages
         {
             Users = _usersService.GetAllUsers();
         }
+
+        public void OnPost()
+        {
+            
+        }
     }
 }
