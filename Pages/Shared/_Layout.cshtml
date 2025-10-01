@@ -13,20 +13,20 @@
 <body>
     <header>
         <div class="sanibell-container">
-            <h4 class="sani">Sani</h4>
-            <h4 class="bell">bell</h4>
+            <h4 class="sanibell-header-text">SANIBELL</h4>
         </div>
-        <div class="button-container"><img class="icon" src="icons\Exit.png" /></div>
+        @* mijn fout, dit kan niet op de header komen, wil andere knoppen gebruiken. ergens in body zetten.
+        <div class="button-container"><img class="icon" src="icons\Exit.png" /></div> *@
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="RenderBody">
+        <main>
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Production Module - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="footer">
+        <div>
+            &copy; @DateTime.UtcNow.Year  SANIBELL - Production Module
         </div>
     </footer>
 
