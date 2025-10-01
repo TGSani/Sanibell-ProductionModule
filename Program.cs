@@ -1,7 +1,10 @@
+using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IUsersService, MockUsersService>();
 
 var app = builder.Build();
 
