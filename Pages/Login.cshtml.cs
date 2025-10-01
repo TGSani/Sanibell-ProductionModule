@@ -22,6 +22,8 @@ namespace Sanibell_ProductionModule.Pages
         {
             _usersService = usersService;
         }
+
+        // krijgt de userID binnen zodat alle data van de user later kan worden vergeleken uit de database
         public IActionResult OnGet()
         {
             Users = _usersService.GetById(Id);
@@ -33,6 +35,7 @@ namespace Sanibell_ProductionModule.Pages
             return Page();
         }
 
+        // vergelijkt de QR code met die uit de database
         public IActionResult OnPost()
         {
             var users = _usersService.GetById(Id);
