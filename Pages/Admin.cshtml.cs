@@ -14,6 +14,9 @@ namespace Sanibell_ProductionModule.Pages
 
         public void OnGet()
         {
+            // Zet de ViewData flags voor het weergeven van de knoppen in de layout
+            ViewData["ShowBackButton"] = false;
+            ViewData["ShowLogoutButton"] = true;
         }
     }
 

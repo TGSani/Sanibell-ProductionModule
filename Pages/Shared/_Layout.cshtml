@@ -1,22 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sanibell_ProductionModule</title>
+    <title>@ViewData["Title"]Sanibell Production</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <header>
         <div class="sanibell-container">
             <h4 class="sanibell-header-text">SANIBELL</h4>
         </div>
         <div class="title-container">
-            <h4 class="page-title">@ViewData[ "Title"]</h4>
+            <h4 class="page-title">@ViewData["Title"]</h4>
         </div>
-        @* mijn fout, dit kan niet op de header komen, wil andere knoppen gebruiken. ergens in body zetten.
-        <div class="icon-container"><img class="icon" src="icons\Exit.png" /></div> *@
+
+        @{
+            // Lees de flags uit ViewData
+            bool showBackButton = ViewData["ShowBackButton"] as bool? ?? false;
+            bool showLogoutButton = ViewData["ShowLogoutButton"] as bool? ?? false;
+        }
+
+        @* Alleen laten zien als een van de buttons actief is *@
+        @if (showBackButton)
+        {
+            <button onclick="history.back()" class="header-buttons">
+                <img class="icon" src="icons/Back.png" />
+            </button>
+        }
+        else if (showLogoutButton)
+        {
+            <a asp-page="/Index" class="header-buttons">
+                <img class="icon" src="icons/Log_out.png" />
+            </a>
+        }
     </header>
     <div class="RenderBody">
         <main>
@@ -26,8 +46,8 @@
 
     <footer class="footer">
         <div>
-            
-            &copy; @DateTime.UtcNow.Year  SANIBELL - Production Module
+
+            &copy; @DateTime.UtcNow.Year SANIBELL - Production Module
         </div>
     </footer>
 
@@ -35,4 +55,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

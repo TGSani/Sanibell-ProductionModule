@@ -22,10 +22,18 @@ namespace Sanibell_ProductionModule.Pages
         {
             _usersService = usersService;
         }
+        // Zet de ViewData flags voor het weergeven van de knoppen in de layout
+        private void SetHeaderButtons()
+        {
+            ViewData["ShowBackButton"] = true;
+            ViewData["ShowLogoutButton"] = false;
+        }
 
         // krijgt de userID binnen zodat alle data van de user later kan worden vergeleken uit de database
         public IActionResult OnGet()
         {
+            SetHeaderButtons();
+            // Haal de gebruiker op op basis van de meegegeven ID
             Users = _usersService.GetById(Id);
             if (Users == null)
             {
@@ -62,6 +70,8 @@ namespace Sanibell_ProductionModule.Pages
 
             ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
             Users = users;
+
+            SetHeaderButtons();
             return Page();
         }
     }
