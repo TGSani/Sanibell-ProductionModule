@@ -5,7 +5,7 @@ namespace Sanibell_ProductionModule.Models;
 public class Users
 {
     public int Id { get; set; }
-    public required string Naam { get; set; }
-    public required string Rol { get; set; }
-    public required string QRcode { get; set; }
+    public required string Name { get; set; }
+    public required string Role { get; set; }
+    public  string? QRcode { get; set; }
 }

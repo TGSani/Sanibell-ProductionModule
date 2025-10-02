@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Sanibell_ProductionModule.Pages
 {
+    [Authorize(Roles = "Planner, Admin")]
     public class PlannerModel : PageModel
     {
         private readonly ILogger<PlannerModel> _logger;

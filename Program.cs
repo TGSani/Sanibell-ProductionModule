@@ -8,6 +8,13 @@ builder.Services.AddRazorPages();
 // DI voor tijdelijke mockdata om login te populate
 builder.Services.AddScoped<IUsersService, MockUsersService>();
 
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.LoginPath = "/Index";
+        options.AccessDeniedPath = "/Index";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

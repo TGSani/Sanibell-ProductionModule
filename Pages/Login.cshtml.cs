@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Models;
@@ -44,35 +47,46 @@ namespace Sanibell_ProductionModule.Pages
         }
 
         // vergelijkt de QR code met die uit de database en stuurt de user door naar de juiste pagina
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             var users = _usersService.GetById(Id);
-            if (users == null)
+
+            if (users == null || users.QRcode != ScannedQRValue)
             {
-                return NotFound();
+                ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
+                Users = users;
+
+                SetHeaderButtons();
+                return Page();
             }
 
-            if (users.QRcode == ScannedQRValue)
+            // Maak claims
+            var claims = new List<Claim>
             {
-                if (users.Rol == "Admin")
-                {
-                    return RedirectToPage("Admin");
-                }
-                else if (users.Rol == "Planner")
-                {
-                    return RedirectToPage("Planner");
-                }
-                else
-                {
-                    return RedirectToPage("User");
-                }
+                new Claim(ClaimTypes.Name, users.Name),
+                new Claim(ClaimTypes.Role, users.Role)
+            };
+
+            var identity = new ClaimsIdentity(claims, "CookieAuth");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("CookieAuth", principal);
+
+            if (users.Role == "Admin")
+            {
+                return RedirectToPage("Admin");
+            }
+            else if (users.Role == "Planner")
+            {
+                return RedirectToPage("Planner");
+            }
+            else
+            {
+                return RedirectToPage("User");
             }
 
-            ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
-            Users = users;
 
-            SetHeaderButtons();
-            return Page();
+
         }
     }
 }

@@ -33,9 +33,11 @@
         }
         else if (showLogoutButton)
         {
-            <a asp-page="/Index" class="header-buttons">
-                <img class="icon" src="icons/Log_out.png" />
-            </a>
+            <form method="post" asp-page="/Logout">
+                <button type="submit" class="header-buttons">
+                    <img class="icon" src="icons/Log_out.png" />
+                </button>
+            </form>
         }
     </header>
     <div class="RenderBody">
