@@ -35,7 +35,7 @@ namespace Sanibell_ProductionModule.Pages
             return Page();
         }
 
-        // vergelijkt de QR code met die uit de database
+        // vergelijkt de QR code met die uit de database en stuurt de user door naar de juiste pagina
         public IActionResult OnPost()
         {
             var users = _usersService.GetById(Id);
