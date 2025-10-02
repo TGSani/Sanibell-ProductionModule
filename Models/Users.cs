@@ -1,7 +1,7 @@
 namespace Sanibell_ProductionModule.Models;
 
 
-// laat de minimale data zien die ik wil gebruiken
+// laat de minimale data zien die ik wil gebruiken om in te loggen
 public class Users
 {
     public int Id { get; set; }
