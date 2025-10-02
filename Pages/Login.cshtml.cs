@@ -75,15 +75,15 @@ namespace Sanibell_ProductionModule.Pages
 
             if (users.Role == "Admin")
             {
-                return RedirectToPage("Admin/Admin");
+                return RedirectToPage("Admin/index");
             }
             else if (users.Role == "Planner")
             {
-                return RedirectToPage("Planner/Planner");
+                return RedirectToPage("Planner/index");
             }
             else
             {
-                return RedirectToPage("User/User");
+                return RedirectToPage("User/index");
             }
 
         }
