@@ -46,7 +46,18 @@ namespace Sanibell_ProductionModule.Pages
 
             if (users.QRcode == ScannedQRValue)
             {
-                return RedirectToPage("Succes");
+                if (users.Rol == "Admin")
+                {
+                    return RedirectToPage("Admin");
+                }
+                else if (users.Rol == "Planner")
+                {
+                    return RedirectToPage("Planner");
+                }
+                else
+                {
+                    return RedirectToPage("User");
+                }
             }
 
             ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
