@@ -25,18 +25,18 @@ namespace Sanibell_ProductionModule.Pages
         {
             _usersService = usersService;
         }
-        // Zet de ViewData flags voor het weergeven van de knoppen in de layout
+       // Set header buttons visibility
         private void SetHeaderButtons()
         {
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
         }
 
-        // krijgt de userID binnen zodat alle data van de user later kan worden vergeleken uit de database
+       // OnGet method to retrieve user by Id and display the login page
         public IActionResult OnGet()
         {
             SetHeaderButtons();
-            // Haal de gebruiker op op basis van de meegegeven ID
+            
             Users = _usersService.GetById(Id);
             if (Users == null)
             {
@@ -46,7 +46,8 @@ namespace Sanibell_ProductionModule.Pages
             return Page();
         }
 
-        // vergelijkt de QR code met die uit de database en stuurt de user door naar de juiste pagina
+        // compare the scanned QR code with the QR code from the database
+        // if they match, create the claims and sign in the user
         public async Task<IActionResult> OnPostAsync()
         {
             var users = _usersService.GetById(Id);
@@ -60,7 +61,7 @@ namespace Sanibell_ProductionModule.Pages
                 return Page();
             }
 
-            // Maak claims
+            // Make claims
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, users.Name),
@@ -74,18 +75,16 @@ namespace Sanibell_ProductionModule.Pages
 
             if (users.Role == "Admin")
             {
-                return RedirectToPage("Admin");
+                return RedirectToPage("Admin/Admin");
             }
             else if (users.Role == "Planner")
             {
-                return RedirectToPage("Planner");
+                return RedirectToPage("Planner/Planner");
             }
             else
             {
-                return RedirectToPage("User");
+                return RedirectToPage("User/User");
             }
-
-
 
         }
     }

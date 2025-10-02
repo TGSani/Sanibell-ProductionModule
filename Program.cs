@@ -5,9 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// DI voor tijdelijke mockdata om login te populate
+// DI for temporary mock user service
 builder.Services.AddScoped<IUsersService, MockUsersService>();
 
+// Cookie authentication
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {

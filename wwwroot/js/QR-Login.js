@@ -1,24 +1,24 @@
-    // QR code login functionaliteit
+    // QR code login functionality
     document.addEventListener("DOMContentLoaded", function () {
         const qrInput = document.getElementById("QRinput");
 
-        // Focus automatisch op het inputveld (ook al is het verborgen)
+        // focus on the hidden input field to capture scanner input
         qrInput.focus();
 
-        // Luister naar toetsenbordinput (bijvoorbeeld van een QR-scanner die als keyboard werkt)
+        // listen for input from the QR scanner
         let buffer = "";
 
         document.addEventListener("keypress", function (e) {
-            // Stop als een echte submit al bezig is
+            // if the input field is disabled, ignore input
             if (qrInput.disabled) return;
 
-            // QR-scanners eindigen vaak met Enter → dan submitten we
+            // QR scanners typically end with an "Enter" key, so we check for that to submit the form
             if (e.key === "Enter") {
                 qrInput.value = buffer;
                 buffer = "";
                 document.querySelector("form").submit();
             } else {
-                buffer += e.key;
+                buffer += e.key; // Since QR scanner is using keypress to input value, we want all values unless its a Enter keypress
             }
         });
     });

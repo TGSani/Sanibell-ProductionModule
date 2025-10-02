@@ -24,7 +24,6 @@
             bool showLogoutButton = ViewData["ShowLogoutButton"] as bool? ?? false;
         }
 
-        @* Alleen laten zien als een van de buttons actief is *@
         @if (showBackButton)
         {
             <button onclick="history.back()" class="header-buttons">
@@ -40,6 +39,7 @@
             </form>
         }
     </header>
+    
     <div class="RenderBody">
         <main>
             @RenderBody()

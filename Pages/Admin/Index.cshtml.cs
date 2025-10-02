@@ -2,21 +2,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Sanibell_ProductionModule.Pages
+namespace Sanibell_ProductionModule.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class AdminModel : PageModel
+    public class IndexModel : PageModel
     {
-        private readonly ILogger<AdminModel> _logger;
+        private readonly ILogger<IndexModel> _logger;
 
-        public AdminModel(ILogger<AdminModel> logger)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
-            // Zet de ViewData flags voor het weergeven van de knoppen in de layout
+            // ViewData flags for displaying buttons in the layout
             ViewData["ShowBackButton"] = false;
             ViewData["ShowLogoutButton"] = true;
         }

@@ -17,11 +17,11 @@ namespace Sanibell_ProductionModule.Pages
         public List<Users> Users { get; set; } = new();
         public void OnGet()
         {
-            // Zet de ViewData flags voor het weergeven van de knoppen in de layout
+            // ViewData flags for displaying buttons in the layout
             ViewData["ShowBackButton"] = false;
             ViewData["ShowLogoutButton"] = false;
 
-            // Haal alle gebruikers op bij het laden van de pagina
+            //get all users to display on the index page
             Users = _usersService.GetAllUsers();
         }
 
