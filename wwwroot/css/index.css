@@ -1,3 +1,8 @@
+.profile-text {
+  text-align: center;
+  padding: 50px 0 30px;
+}
+
 .tiles {
   padding: 20px;
   display: flex;

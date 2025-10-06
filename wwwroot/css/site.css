@@ -103,15 +103,6 @@ header {
   background-color: #807e7e;
 }
 
-/* Misc utility */
-.text-center {
-  text-align: center;
-}
-
-.padding-25 {
-  padding: 25px;
-}
-
 /* Footer */
 .footer {
   position: fixed;
