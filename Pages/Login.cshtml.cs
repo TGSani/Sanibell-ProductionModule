@@ -78,12 +78,7 @@ namespace Sanibell_ProductionModule.Pages
                 IsPersistent = false
             });
 
-            return users.Role switch
-            {
-                "Admin" => RedirectToPage("/Admin/index"),
-                "Planner" => RedirectToPage("/Planner/index"),
-                _ => RedirectToPage("/User/index")
-            };
+            return RedirectToPage("/Dashboard");
         }
     }
 }

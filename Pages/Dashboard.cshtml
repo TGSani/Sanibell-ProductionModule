@@ -1,0 +1,30 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+}
+
+<h1 class="profile-text">Welkom @User.Identity?.Name</h1>
+
+<div class="tiles">
+    <!-- hier word voor elke user een tile aangemaakt -->
+    @foreach (MenuTile t in Model.Tiles)
+    {
+        <a asp-page="/Login" asp-route-id="">
+            <div class="menu-container shadowbox">
+                <div class="menu-head">
+                    <img class="user-icon" src="@t.Icon" />
+                    <h4 class="tile-username">@t.Title</h4>
+                </div>
+                <div class="tile-divider"></div>
+                <div class="menu-body">
+                    <p class="tile-description">@t.Description</p>
+                </div>
+            </div>
+        </a>
+    }
+</div>

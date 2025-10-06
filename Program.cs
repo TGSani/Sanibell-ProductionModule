@@ -8,6 +8,9 @@ builder.Services.AddRazorPages();
 
 // DI for temporary mock user service
 builder.Services.AddScoped<IUsersService, MockUsersService>();
+builder.Services.AddScoped<IMenuTileService, MenuTileService>();
+
+builder.Services.AddAuthorization();
 
 // Cookie authentication
 builder.Services.AddAuthentication("CookieAuth")
