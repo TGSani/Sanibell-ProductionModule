@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 // DI for temporary mock user service
 builder.Services.AddScoped<IUsersService, MockUsersService>();
 builder.Services.AddScoped<IMenuTileService, MenuTileService>();
+builder.Services.AddSingleton<DatabaseService>();
 
 builder.Services.AddAuthorization();
 

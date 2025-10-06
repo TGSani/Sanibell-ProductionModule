@@ -7,4 +7,8 @@
     <RootNamespace>Sanibell_ProductionModule</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.Odbc" Version="9.0.9" />
+  </ItemGroup>
+
 </Project>
