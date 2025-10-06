@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Login page";
 }
+
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
 <div class="welcome-container">
     <img  class="login-icon" src="icons/User.png" />
     <h2 class="text-center">Welkom @(Model.Users != null ? Model.Users.Name : "")!</h2>

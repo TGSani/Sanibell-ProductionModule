@@ -1,0 +1,38 @@
+.tiles {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.tile-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: solid 3px #000;
+  width: 150px;
+  height: 150px;
+  background-color: #D9D9D9;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile-username {
+  font-size: 24px;
+  text-align: center;
+}
+
+.tile-divider {
+  border-top: 1px solid #000;
+}
+
+.tile-role {
+  font-size: 12px;
+}
+
+.user-icon {
+  height: 48px;
+  width: 48px;
+}

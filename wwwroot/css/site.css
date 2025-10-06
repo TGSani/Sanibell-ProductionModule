@@ -1,3 +1,5 @@
+
+/* Basics */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -6,57 +8,70 @@
   font-weight: 400;
   font-style: normal;
 
-  /*debug border want ik heb geen idee wat ik doe */
+  /* Debug */
   /* border: solid 1px red; */
 }
 
-/* Header */
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Header layout */
 header {
-  display:flex;
+  position: relative;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100px;
   background-color: #D9D9D9;
   border-bottom: solid 1px #000;
-  text-align: center;
-  padding: 25px;
-  
+  padding: 0 25px;
 }
 
 .sanibell-container {
   display: flex;
-  align-items:center;
-  width: 20%;
-  height: 100px;
-  font-size: 48px;
+  align-items: center;
+  z-index: 1;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  z-index: 1;
 }
 
 .title-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60%;
-  height: 100px;
-  font-size: 42px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 0;
 }
-
 
 .sanibell-header-text {
   background-image: linear-gradient(to right, #000 0 50%, #666 50% 100%);
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: 5px;
+  font-size: 48px;
 }
 
 .page-title {
-  text-align: center;
   color: rgba(0, 0, 0, 0.5);
+  font-size: 42px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90vw;
 }
 
-/* Header button*/
+/* Header button/icon */
 .header-buttons {
   width: 50px;
   height: 50px;
-  background-color: #666;
   border-radius: 10px;
   border: solid 1px #000;
 }
@@ -66,27 +81,10 @@ header {
   width: 48px;
   border-radius: 10px;
   border: solid 1px #000;
+  background-color: #666;
 }
 
-.user-icon {
-  height: 48px;
-  width: 48px;
-}
-
-.login-icon {
-  height: 150px;
-  width: 150px;
-}
-
-/* utilities */
-.text-center {
-  text-align: center;
-}
-
-.padding-25 {
-  padding: 25px;
-}
-
+/* Shadowbox utility */
 .shadowbox {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 }
@@ -99,73 +97,14 @@ header {
   background-color: #807e7e;
 }
 
-a {
-  color:inherit;
-  text-decoration: none;
-}
-
-
-/* Login tiles*/
-.tiles  {
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: center;
-}
-
-.tile-container {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  border: solid 3px #000;
-  width: 150px;
-  height: 150px;
-  background-color: #D9D9D9;
-  justify-content: center;
-  align-items: center;
-  
-}
-
-.tile-username {
-  font-size: 24px;
+/* Misc utility */
+.text-center {
   text-align: center;
 }
 
-.tile-divider {
-  border-top: 1px solid #000;
+.padding-25 {
+  padding: 25px;
 }
-
-.tile-role {
-  font-size: 12px;
-}
-
-.welcome-container {
-  display: flex;
-  margin: auto;
-  padding-top: 50px;
-  width: 250px;
-  height: 250px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.scan-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.scan-text {
-  font-size: 48px;
-}
-
-.scan-text-p {
-  font-size: 24px;
-}
-
 
 /* Footer */
 .footer {
@@ -178,46 +117,54 @@ a {
   background-color: #D9D9D9;
 }
 
+/* Responsive header */
 @media screen and (max-width: 790px) {
-  .sanibell-header-text{
-    display:none
-  }  
-}
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
 
+  .title-container {
+    position: static;
+    transform: none;
+    margin: 10px 0;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .sanibell-header-text {
+    display: none;
+  }
+}
 
 /* Fonts */
-
-
-/* Poppins Regular */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
-/* Poppins Bold */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
-/* Poppins Italic */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Italic.ttf') format('truetype');
-    font-weight: 400;
-    font-style: italic;
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
 }
 
-/* Poppins Light */
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
-
-/* Je kunt andere gewichten op dezelfde manier toevoegen als nodig */
