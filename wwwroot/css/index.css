@@ -41,3 +41,7 @@
   height: 48px;
   width: 48px;
 }
+
+.error-text {
+  text-align: center;
+}

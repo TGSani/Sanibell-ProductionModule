@@ -1,5 +1,6 @@
 using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.Services;
+using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,7 +31,9 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapStaticAssets();
 app.MapRazorPages()

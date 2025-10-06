@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Models;
@@ -8,9 +9,9 @@ using Sanibell_ProductionModule.Services.Interfaces;
 
 namespace Sanibell_ProductionModule.Pages
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
-
         private readonly IUsersService _usersService;
 
         [BindProperty(SupportsGet = true)]
@@ -25,18 +26,18 @@ namespace Sanibell_ProductionModule.Pages
         {
             _usersService = usersService;
         }
-       // Set header buttons visibility
+        // Set header buttons visibility
         private void SetHeaderButtons()
         {
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
         }
 
-       // OnGet method to retrieve user by Id and display the login page
+        // OnGet method to retrieve user by Id and display the login page
         public IActionResult OnGet()
         {
             SetHeaderButtons();
-            
+
             Users = _usersService.GetById(Id);
             if (Users == null)
             {
@@ -71,21 +72,18 @@ namespace Sanibell_ProductionModule.Pages
             var identity = new ClaimsIdentity(claims, "CookieAuth");
             var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync("CookieAuth", principal);
+            await HttpContext.SignInAsync("CookieAuth", principal, new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8),
+                IsPersistent = false
+            });
 
-            if (users.Role == "Admin")
+            return users.Role switch
             {
-                return RedirectToPage("Admin/index");
-            }
-            else if (users.Role == "Planner")
-            {
-                return RedirectToPage("Planner/index");
-            }
-            else
-            {
-                return RedirectToPage("User/index");
-            }
-
+                "Admin" => RedirectToPage("/Admin/index"),
+                "Planner" => RedirectToPage("/Planner/index"),
+                _ => RedirectToPage("/User/index")
+            };
         }
     }
 }

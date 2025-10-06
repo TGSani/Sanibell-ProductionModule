@@ -23,3 +23,7 @@
 .scan-text-p {
   font-size: 24px;
 }
+
+.error-text {
+  text-align: center;
+}
