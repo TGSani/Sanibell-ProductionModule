@@ -1,3 +1,4 @@
+using Sanibell_ProductionModule.Models;
 using Sanibell_ProductionModule.Services.Interfaces;
 using System.Security.Claims;
 
@@ -15,9 +16,9 @@ public sealed class MenuTileService : IMenuTileService
     public IEnumerable<MenuTile> GetTilesFor(ClaimsPrincipal user)
     {
         if (user?.Identity?.IsAuthenticated != true)
-            return All.Where(t => t.Roles.Length == 0); // alleen publieke tiles
+            return All.Where(t => t.Roles.Length == 0); // public tiles only
 
-        // Als Roles leeg: altijd tonen; anders: intersect met user-rollen
+        // if Roles empty, always show. otherwise base on user-roles
         var userRoles = user.FindAll(ClaimTypes.Role).Select(c => c.Value).ToHashSet(StringComparer.OrdinalIgnoreCase);
         
         return All.Where(t => t.Roles.Length == 0 || t.Roles.Any(userRoles.Contains));

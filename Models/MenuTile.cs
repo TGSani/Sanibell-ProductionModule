@@ -1,3 +1,4 @@
+namespace Sanibell_ProductionModule.Models;
 public sealed class MenuTile
 {
     public required string Title { get; init; }

@@ -1,7 +1,7 @@
 @page
 @model DashboardModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = " Dashboard";
 }
 
 @section PageStyle {
@@ -11,8 +11,8 @@
 <h1 class="profile-text">Welkom @User.Identity?.Name</h1>
 
 <div class="tiles">
-    <!-- hier word voor elke user een tile aangemaakt -->
-    @foreach (MenuTile t in Model.Tiles)
+    <!-- hier word per role tiles aangemaakt -->
+    @foreach (Models.MenuTile t in Model.Tiles)
     {
         <a asp-page="/Login" asp-route-id="">
             <div class="menu-container shadowbox">
