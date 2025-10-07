@@ -1,23 +1,48 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sanibell_ProductionModule</title>
+    <title>Sanibell - @ViewData["Title"]</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("PageStyle", required: false)
 </head>
+
 <body>
     <header>
         <div class="sanibell-container">
             <h4 class="sanibell-header-text">SANIBELL</h4>
         </div>
-        @* mijn fout, dit kan niet op de header komen, wil andere knoppen gebruiken. ergens in body zetten.
-        <div class="button-container"><img class="icon" src="icons\Exit.png" /></div> *@
+        <div class="title-container">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+
+        @{
+            // Lees de flags uit ViewData
+            bool showBackButton = ViewData["ShowBackButton"] as bool? ?? false;
+            bool showLogoutButton = ViewData["ShowLogoutButton"] as bool? ?? false;
+        }
+
+        <div class="button-container ">
+            @if (showBackButton)
+            {
+                <button onclick="history.back()" class="header-buttons shadowbox">
+                    <img class="icon" src="icons/Back.png" />
+                </button>
+            }
+            else if (showLogoutButton || (User?.Identity?.IsAuthenticated == true))
+            {
+                <form method="post" asp-page="/Logout">
+                    <button type="submit" class="header-buttons shadowbox">
+                        <img class="icon" src="icons/Log_out.png" />
+                    </button>
+                </form>
+            }
+        </div>
     </header>
+
     <div class="RenderBody">
         <main>
             @RenderBody()
@@ -26,7 +51,8 @@
 
     <footer class="footer">
         <div>
-            &copy; @DateTime.UtcNow.Year  SANIBELL - Production Module
+
+            &copy; @DateTime.UtcNow.Year SANIBELL - Production Module
         </div>
     </footer>
 
@@ -34,4 +60,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

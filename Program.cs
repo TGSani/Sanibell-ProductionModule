@@ -1,7 +1,21 @@
+using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Services;
+using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// DI for temporary mock user service
+builder.Services.AddScoped<IUsersService, MockUsersService>();
+
+// Cookie authentication
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.LoginPath = "/Index";
+        options.AccessDeniedPath = "/Index";
+    });
 
 var app = builder.Build();
 
@@ -17,7 +31,9 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapStaticAssets();
 app.MapRazorPages()
