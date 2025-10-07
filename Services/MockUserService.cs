@@ -17,7 +17,7 @@ public class MockUsersService : IUsersService
         new Users { Id = 7, Name = "Patrick", Role = "User", QRcode = "777"},
         new Users { Id = 8, Name = "Koen", Role = "Planner", QRcode = "888"},
         new Users { Id = 9, Name = "Tim", Role = "User", QRcode = "999"},
-        new Users { Id = 11, Name = "Hendrick-jan", Role = "Tester", QRcode = "112"},
+        new Users { Id = 11, Name = "Hendrick-jan", Role = "User", QRcode = "112"},
         new Users { Id = 10, Name = "Marie-Louise", Role = "Planner", QRcode = "223"},
         new Users { Id = 12, Name = "QR-Test", Role = "Admin", QRcode = /* QR code opvragen*/"1"}
     };
