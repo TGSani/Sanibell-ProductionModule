@@ -12,7 +12,7 @@ namespace Sanibell_ProductionModule.Pages
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly IUsersService _usersService;
+        private readonly IUsersRepository _users;
 
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
@@ -20,11 +20,11 @@ namespace Sanibell_ProductionModule.Pages
         [BindProperty]
         public string ScannedQRValue { get; set; } = string.Empty;
 
-        public Users? Users { get; set; }
+        public Models.User? Users { get; set; }
 
-        public LoginModel(IUsersService usersService)
+        public LoginModel(IUsersRepository users)
         {
-            _usersService = usersService;
+            _users = users;
         }
         // Set header buttons visibility
         private void SetHeaderButtons()
@@ -34,39 +34,44 @@ namespace Sanibell_ProductionModule.Pages
         }
 
         // OnGet method to retrieve user by Id and display the login page
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             SetHeaderButtons();
 
-            Users = _usersService.GetById(Id);
-            if (Users == null)
+            if (Id > 0)
             {
-                return NotFound();
+                Users = await _users.GetByIdAsync(Id);
             }
 
             return Page();
+
         }
 
         // compare the scanned QR code with the QR code from the database
         // if they match, create the claims and sign in the user
         public async Task<IActionResult> OnPostAsync()
         {
-            var users = _usersService.GetById(Id);
+            SetHeaderButtons();
 
-            if (users == null || users.QRcode != ScannedQRValue)
+            Users = await _users.GetByIdAsync(Id);
+
+            if (Users == null)
             {
-                ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
-                Users = users;
-
-                SetHeaderButtons();
+                ModelState.AddModelError(string.Empty, "Gebruiker niet gevonden.");
                 return Page();
             }
+
+            if (string.IsNullOrWhiteSpace(Users.QRcode) || Users.QRcode != ScannedQRValue)
+                {
+                    ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
+                    return Page();
+                }
 
             // Make claims
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, users.Name),
-                new Claim(ClaimTypes.Role, users.Role)
+                new Claim (ClaimTypes.Name, Users.Name),
+                new Claim (ClaimTypes.Role, Users.Role)
             };
 
             var identity = new ClaimsIdentity(claims, "CookieAuth");

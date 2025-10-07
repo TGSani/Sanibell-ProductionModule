@@ -6,10 +6,10 @@ public sealed class MenuTileService : IMenuTileService
 {
     private static readonly MenuTile[] All =
     [
-        new() { Title="Orders", Description="De totaallijst met te produceren productie orders", Icon="/icons/Orders.png", Href="/", Roles = ["Admin", "Planner", "User"] },
-        new() { Title="Production", Description="Producties starten en sluiten", Icon="/icons/Productie.png", Href="/", Roles = ["Admin", "Planner", "User"] },
-        new() { Title="Planning", Description="Productie advieslijst maken", Icon="/icons/Planning.png", Href="/", Roles = ["Admin", "Planner"] },
-        new() { Title="Config", Description="Configuratie instellingen wijzigen", Icon="/icons/Settings.png", Href="/", Roles = ["Admin"] }
+        new() { Title="Orders", Description="De totaallijst met te produceren productie orders", Icon="/icons/Orders.png", Href="/", Roles = ["Administrator", "Planner", "Productie medewerker"] },
+        new() { Title="Production", Description="Producties starten en sluiten", Icon="/icons/Productie.png", Href="/", Roles = ["Administrator", "Planner", "Productie medewerker"] },
+        new() { Title="Planning", Description="Productie advieslijst maken", Icon="/icons/Planning.png", Href="/", Roles = ["Administrator", "Planner"] },
+        new() { Title="Config", Description="Configuratie instellingen wijzigen", Icon="/icons/Settings.png", Href="/", Roles = ["Administrator"] }
     ];
 
 
