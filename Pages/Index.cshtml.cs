@@ -9,7 +9,6 @@ namespace Sanibell_ProductionModule.Pages
         
         private readonly IUsersRepository _users;
         public IndexModel(IUsersRepository users) => _users = users;
-
         public IReadOnlyList<Models.User>? Users { get; private set; }
         public async Task OnGetAsync()
         {

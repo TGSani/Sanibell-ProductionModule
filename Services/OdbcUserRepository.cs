@@ -7,7 +7,7 @@ namespace Sanibell_ProductionModule.Services;
 
 public sealed class OdbcUserRepository : IUsersRepository
 {
-    // gets all users to generate tiles
+    // get all users
     private static readonly string GetAllSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
@@ -30,7 +30,7 @@ public sealed class OdbcUserRepository : IUsersRepository
             AND VRCP_Productie <> 'NEE'
             """;
 
-    // GetById for users by id
+    // Get users by id
     private static readonly string GetByIdSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
