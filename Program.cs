@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// DI for temporary mock user service
-builder.Services.AddScoped<IUsersService, MockUsersService>();
+// DI for user service
+builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); // mock
+// builder.Services.AddScoped<IUsersRepository, OdbcUserRepository>(); // db
 builder.Services.AddScoped<IMenuTileService, MenuTileService>();
+
 
 builder.Services.AddAuthorization();
 

@@ -1,4 +1,5 @@
 ﻿@page
+@using Sanibell_ProductionModule.Services.Interfaces
 @model IndexModel
 @{
     ViewData["Title"] = "";
@@ -11,14 +12,19 @@
 <h1 class="profile-text">Selecteer uw profiel</h1>
 
 <div class="tiles">
-<!-- hier word voor elke user een tile aangemaakt -->
-@foreach (Models.Users users in Model.Users) {
-    <a asp-page="/Login" asp-route-id="@users.Id">
-        <div class="tile-container shadowbox">
-            <img class="user-icon" src="icons\User.png" />
-            <h4 class="tile-username">@users.Name</h4>
-            <p class="tile-role tile-divider">@users.Role</p>
-        </div>
-    </a>
-}
+    <!-- hier word voor elke user een tile aangemaakt -->
+    @if (Model.Users != null)
+    {
+        foreach (Models.User users in Model.Users)
+        {
+            <a asp-page="/Login" asp-route-id="@users.Id">
+                <div class="tile-container shadowbox">
+                    <img class="user-icon" src="icons\User.png" />
+                    <h4 class="tile-username">@users.Name</h4>
+                    <p class="tile-role tile-divider">@users.Role</p>
+                </div>
+            </a>
+        }
+    }
+
 </div>

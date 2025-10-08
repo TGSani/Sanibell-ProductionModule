@@ -6,23 +6,18 @@ namespace Sanibell_ProductionModule.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IUsersService _usersService;
-
-        public IndexModel(ILogger<IndexModel> logger, IUsersService usersService)
-        {
-            _logger = logger;
-            _usersService = usersService;
-        }
-        public List<Users> Users { get; set; } = new();
-        public void OnGet()
+        
+        private readonly IUsersRepository _users;
+        public IndexModel(IUsersRepository users) => _users = users;
+        public IReadOnlyList<Models.User>? Users { get; private set; }
+        public async Task OnGetAsync()
         {
             // ViewData flags for displaying buttons in the layout
             ViewData["ShowBackButton"] = false;
             ViewData["ShowLogoutButton"] = false;
 
             //get all users to display on the index page
-            Users = _usersService.GetAllUsers();
+            Users =  await _users.GetAllAsync();
         }
 
         public void OnPost()
