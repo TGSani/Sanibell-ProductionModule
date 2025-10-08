@@ -7,7 +7,7 @@ namespace Sanibell_ProductionModule.Services;
 
 public sealed class OdbcUserRepository : IUsersRepository
 {
-    // get all users
+    // SQL to get all users
     private static readonly string GetAllSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
@@ -30,7 +30,7 @@ public sealed class OdbcUserRepository : IUsersRepository
             AND VRCP_Productie <> 'NEE'
             """;
 
-    // Get users by id
+    // SQL to get user by id
     private static readonly string GetByIdSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
@@ -54,11 +54,16 @@ public sealed class OdbcUserRepository : IUsersRepository
             AND VRCP_Productie <> 'NEE'
             """;
 
+    // connection string
     private readonly string _cs;
     public OdbcUserRepository(IConfiguration cfg)
-    => _cs = cfg.GetConnectionString("DemoArt")
+    {
+        _cs = cfg.GetConnectionString("DemoArt")
         ?? throw new InvalidOperationException("Connectionstring ontbreekt");
+    }
 
+
+    // open connection
     private async Task<OdbcConnection> OpenAsync(CancellationToken ct)
     {
         var conn = new OdbcConnection(_cs);
@@ -66,6 +71,7 @@ public sealed class OdbcUserRepository : IUsersRepository
         return conn;
     }
 
+    // get all users
     public async Task<IReadOnlyList<User>> GetAllAsync(CancellationToken ct = default)
     {
         using var conn = await OpenAsync(ct);
@@ -73,6 +79,7 @@ public sealed class OdbcUserRepository : IUsersRepository
         return rows.AsList();
     }
 
+    // get user by id
     public async Task<User?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         using var conn = await OpenAsync(ct);

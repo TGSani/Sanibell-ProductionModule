@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Sanibell_ProductionModule.Pages.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrator")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;

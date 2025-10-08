@@ -14,7 +14,7 @@
     <!-- hier word per role tiles aangemaakt -->
     @foreach (Models.MenuTile t in Model.Tiles)
     {
-        <a asp-page="/Login" asp-route-id="">
+        <a asp-page="@t.Href">
             <div class="menu-container shadowbox">
                 <div class="menu-head">
                     <img class="user-icon" src="@t.Icon" />
