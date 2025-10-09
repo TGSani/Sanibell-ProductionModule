@@ -1,9 +1,9 @@
 using System.Data.Odbc;
 using Dapper;
 using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Repositories.Interfaces;
 
-namespace Sanibell_ProductionModule.Services;
+namespace Sanibell_ProductionModule.Repositories;
 
 public sealed class OdbcUserRepository : IUsersRepository
 {

@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Repositories.Interfaces;
 
 namespace Sanibell_ProductionModule.Pages
 {
     public class IndexModel : PageModel
     {
-        
         private readonly IUsersRepository _users;
-        public IndexModel(IUsersRepository users) => _users = users;
+        public IndexModel(IUsersRepository users)
+        {
+          _users = users;  
+        } 
         public IReadOnlyList<Models.User>? Users { get; private set; }
         public async Task OnGetAsync()
         {

@@ -1,6 +1,6 @@
 using Sanibell_ProductionModule.Models;
 
-namespace Sanibell_ProductionModule.Services.Interfaces;
+namespace Sanibell_ProductionModule.Repositories.Interfaces;
 
 
 public interface IUsersRepository

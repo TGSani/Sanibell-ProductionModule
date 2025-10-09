@@ -1,7 +1,7 @@
 using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Repositories.Interfaces;
 
-namespace Sanibell_ProductionModule.Services;
+namespace Sanibell_ProductionModule.Repositories;
 
 // mock data to simulate users, will be replaced by ODBC connection to King
 public class MockUserRepository : IUsersRepository

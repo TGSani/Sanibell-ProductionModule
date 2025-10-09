@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services.Interfaces;
+using Sanibell_ProductionModule.Repositories.Interfaces;
 
 namespace Sanibell_ProductionModule.Pages
 {
