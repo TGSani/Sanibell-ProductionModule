@@ -51,16 +51,41 @@ a {
 
 /* Zebra striping */
 .data-container tbody tr:nth-child(odd) {
-    background-color: #F1F1F1;
+    background-color: #F9F9F9;
 }
-
-/* Hover effect */
-/* .data-container tbody tr:hover {
-    background-color: #cecfd1;
-} */
 
 /* Table data cells */
 .data-container td {
     padding: 10px 16px;
     vertical-align: middle;
+}
+
+/* Order Status colors */
+.status-ready {
+    color: #3c763d;
+    background-color: #f3f7f3;
+    font-weight: 600;
+}
+
+.status-progress {
+    color: #2a628f;
+    background-color: #f1f5fa;
+    font-weight: 600;
+}
+
+.status-waiting {
+    color: #b58900;
+    background-color: #fff9e8;
+    font-weight: 600;
+}
+
+.status-cancelled {
+    color: #8a1c1c;
+    background-color: #f9e8e8;
+    font-weight: 600;
+}
+
+.status-default {
+    color: black;
+    font-weight: 600;
 }

@@ -25,9 +25,18 @@
         {
             foreach (Models.Order order in Model.Orders)
             {
+                string statusClass = order.Status switch
+                {
+                    "Afgerond" => "status-ready",
+                    "In productie" => "status-progress",
+                    "Gereserveerd" => "status-waiting",
+                    "Geannuleerd" => "status-cancelled",
+                    _ => "status-default"
+                };
+
                 <tr>
                     <td>@order.Id</td>
-                    <td>@order.Status</td>
+                    <td class="@statusClass">@order.Status</td>
                     <td>@order.Note</td>
                     <td>@order.Amount</td>
                     <td>@order.CreatedBy</td>
