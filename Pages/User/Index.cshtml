@@ -3,6 +3,37 @@
 @{
     ViewData["Title"] = "Medewerker";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail User view</p>
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/userIndex.css" />
+}
+
+
+<table class="data-container">
+    <thead>
+        <tr>
+            <th>Productie-ordernr.</th>
+            <th>Status</th>
+            <th>opmerking</th>
+            <th>aantal</th>
+            <th>aangemaakt door</th>
+            <th>Produceren door</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Orders != null)
+        {
+            foreach (Models.Order order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Status</td>
+                    <td>@order.Note</td>
+                    <td>@order.Amount</td>
+                    <td>@order.CreatedBy</td>
+                    <td>@order.MadeBy</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
