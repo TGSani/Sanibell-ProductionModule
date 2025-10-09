@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Models;
 using Sanibell_ProductionModule.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sanibell_ProductionModule.Pages
 {
+    [Authorize]
     public class DashboardModel(IMenuTileService menu) : PageModel
     {
 

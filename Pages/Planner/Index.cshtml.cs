@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Sanibell_ProductionModule.Pages.Planner
 {
-    [Authorize(Roles = "Planner, Admin")]
+    [Authorize(Policy = "RequirePlannerRole")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
@@ -17,8 +17,8 @@ namespace Sanibell_ProductionModule.Pages.Planner
         public void OnGet()
         {
             // Zet de ViewData flags voor het weergeven van de knoppen in de layout
-            ViewData["ShowBackButton"] = false;
-            ViewData["ShowLogoutButton"] = true;
+            ViewData["ShowBackButton"] = true;
+            ViewData["ShowLogoutButton"] = false;
         }
     }
 

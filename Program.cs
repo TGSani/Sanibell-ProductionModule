@@ -13,8 +13,16 @@ builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch b
 builder.Services.AddScoped<IMenuTileService, MenuTileService>();
 builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 
-
-builder.Services.AddAuthorization();
+// policy based authorization
+builder.Services.AddAuthorization( options =>
+{
+    options.AddPolicy("RequireAdministratorRole",
+         policy => policy.RequireRole("Administrator"));
+    options.AddPolicy("RequirePlannerRole",
+         policy => policy.RequireRole("Planner", "Administrator"));
+    options.AddPolicy("RequireProductionRole",
+         policy => policy.RequireRole("Productie Medewerker", "Planner", "Administrator"));
+});
 
 // Cookie authentication
 builder.Services.AddAuthentication("CookieAuth")
