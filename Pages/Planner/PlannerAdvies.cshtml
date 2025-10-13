@@ -3,34 +3,32 @@
 @{
     ViewData["Title"] = "Planner Advies";
 }
-<h1>@ViewData["Title"]</h1>
+
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
+}
 
 <table class="data-container">
     <thead>
         <tr>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
+            <th>Eindproduct</th>
+            <th>Artikel Nummer</th>
+            <th>Recept Code</th>
+            <th>Aanbevolen Aantal</th>
+            <th>Maximale Aantal</th>
         </tr>
     </thead>
     <tbody>
         @if (Model.Planners != null)
         {
-            foreach (Models.Planning order in Model.Planners)
+            foreach (Models.Planning planner in Model.Planners)
             {
-
-
-                <tr>
-                    <td>Test</td>
-                    @* <td>@order.Id</td>
-                    <td class="@statusClass">@order.Status</td>
-                    <td>@order.Note</td>
-                    <td>@order.Amount</td>
-                    <td>@order.CreatedBy</td>
-                    <td>@order.MadeBy</td> *@
+                <tr onclick="location.href='@Url.Page(pageName: "/Planner/PlannerDetail", new { AdviesId = planner.AdviesId })';">
+                    <td>@planner.EindProduct</td>
+                    <td>@planner.ArtikelNummer</td>
+                    <td>@planner.ReceptCode</td>
+                    <td>@planner.AanbevolenAantal</td>
+                    <td>@planner.MaximaalAantal</td>
                 </tr>
             }
         }
