@@ -10,8 +10,8 @@ public sealed class MenuTileService : IMenuTileService
     // all tiles
     private static readonly MenuTile[] All =
     [
-        new() { Title="Orders", Description="De totaallijst met te produceren productie orders", Icon="/icons/Orders.png", Href="/User/Index", Roles = ["Administrator", "Planner", "Productie medewerker"] },
-        new() { Title="Production", Description="Producties starten en sluiten", Icon="/icons/Productie.png", Href="/User/Index", Roles = ["Administrator", "Planner", "Productie medewerker"] },
+        new() { Title="Orders", Description="De totaallijst met te produceren productie orders", Icon="/icons/Orders.png", Href="/User/Order", Roles = ["Administrator", "Planner", "Productie medewerker"] },
+        new() { Title="Production", Description="Producties starten en sluiten", Icon="/icons/Productie.png", Href="/User/Production", Roles = ["Administrator", "Planner", "Productie medewerker"] },
         new() { Title="Planning", Description="Productie advieslijst maken", Icon="/icons/Planning.png", Href="/Planner/Index", Roles = ["Administrator", "Planner"] },
         new() { Title="Config", Description="Configuratie instellingen wijzigen", Icon="/icons/Settings.png", Href="/Admin/Index", Roles = ["Administrator"] }
     ];

@@ -6,12 +6,11 @@ using Sanibell_ProductionModule.Repositories.Interfaces;
 namespace Sanibell_ProductionModule.Pages.User
 {
     [Authorize (Policy = "RequireProductionRole")]
-    public class IndexModel : PageModel
+    public class OrderModel : PageModel
     {
         private readonly IOrderRepository _orders;
 
-
-        public IndexModel(IOrderRepository orders)
+        public OrderModel(IOrderRepository orders)
         {
             _orders = orders;
         }

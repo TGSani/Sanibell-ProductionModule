@@ -1,8 +1,8 @@
 using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.Services;
-using Microsoft.Extensions.Options;
 using Sanibell_ProductionModule.Repositories.Interfaces;
 using Sanibell_ProductionModule.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
 builder.Services.AddScoped<IMenuTileService, MenuTileService>();
 builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
+builder.Services.AddScoped<IProductionRepository, MockProductionRepository>(); // switch between "MockProductionRepository" and "OdbcProductionRepository" here
 
 // policy based authorization
 builder.Services.AddAuthorization( options =>
