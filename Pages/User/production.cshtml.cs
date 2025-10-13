@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
+using Sanibell_ProductionModule.Models;
 
 namespace Sanibell_ProductionModule.Pages.User;
 
@@ -15,7 +15,7 @@ public class ProductionModel : PageModel
             _production = production;
         }
 
-        public IReadOnlyList<Models.Production>? Productions { get; private set; }
+        public IReadOnlyList<Production>? Productions { get; private set; }
         public async Task OnGetAsync()
         {
             // Zet de ViewData flags voor het weergeven van de knoppen in de layout
