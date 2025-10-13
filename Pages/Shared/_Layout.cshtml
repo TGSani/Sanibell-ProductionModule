@@ -29,14 +29,14 @@
             @if (showBackButton)
             {
                 <button onclick="history.back()" class="header-buttons shadowbox">
-                    <img class="icon" src="icons/Back.png" />
+                    <img class="icon" src="~/icons/Back.png" />
                 </button>
             }
             else if (showLogoutButton || (User?.Identity?.IsAuthenticated == true))
             {
                 <form method="post" asp-page="/Logout">
                     <button type="submit" class="header-buttons shadowbox">
-                        <img class="icon" src="icons/Log_out.png" />
+                        <img class="icon" src="~/icons/Log_out.png" />
                     </button>
                 </form>
             }

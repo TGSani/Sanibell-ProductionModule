@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // DI for user service
-builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
+builder.Services.AddScoped<IUsersRepository, OdbcUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
 builder.Services.AddScoped<IMenuTileService, MenuTileService>();
 builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 builder.Services.AddScoped<IProductionRepository, MockProductionRepository>(); // switch between "MockProductionRepository" and "OdbcProductionRepository" here
@@ -17,12 +17,12 @@ builder.Services.AddScoped<IProductionRepository, MockProductionRepository>(); /
 // policy based authorization
 builder.Services.AddAuthorization( options =>
 {
-    options.AddPolicy("RequireAdministratorRole",
-         policy => policy.RequireRole("Administrator"));
+    options.AddPolicy("RequireProductionRole",
+         policy => policy.RequireRole("ProductieMedewerker", "Planner", "Administrator"));
     options.AddPolicy("RequirePlannerRole",
          policy => policy.RequireRole("Planner", "Administrator"));
-    options.AddPolicy("RequireProductionRole",
-         policy => policy.RequireRole("Productie Medewerker", "Planner", "Administrator"));
+     options.AddPolicy("RequireAdministratorRole",
+         policy => policy.RequireRole("Administrator"));
 });
 
 // Cookie authentication

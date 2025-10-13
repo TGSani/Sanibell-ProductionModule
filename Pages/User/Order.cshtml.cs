@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
+using Sanibell_ProductionModule.Models;
 
 namespace Sanibell_ProductionModule.Pages.User
 {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Sanibell_ProductionModule.Pages
 {
-    [Authorize]
+    [Authorize (Policy = "RequireProductionRole")]
     public class DashboardModel(IMenuTileService menu) : PageModel
     {
 

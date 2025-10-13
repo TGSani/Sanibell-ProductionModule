@@ -62,7 +62,6 @@ public sealed class OdbcUserRepository : IUsersRepository
         ?? throw new InvalidOperationException("Connectionstring ontbreekt");
     }
 
-
     // open connection
     private async Task<OdbcConnection> OpenAsync(CancellationToken ct)
     {
