@@ -11,22 +11,38 @@
 <table class="data-container">
     <thead>
         <tr>
-            <th>Eindproduct</th>
             <th>Artikel Nummer</th>
-            <th>Recept Code</th>
+            <th>Artikel Omschrijving</th>
+            <th>Status</th>
+            <th>Soort</th>
+            <th>Huidig aantal</th>
             <th>Aanbevolen Aantal</th>
-            <th>Maximale Aantal</th>
+            <th>Maximale aantal</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody> 
         @if (Model.Planners != null)
         {
-            foreach (Models.Planning planner in Model.Planners)
-            {
+            var actievePlanners = Model.Planners.Where(p => p.Status != "Afgerond");
+
+            foreach (var planner in actievePlanners)
+            {   
+                // adds color in status cell based on current status 
+                string statusClass = planner.Status switch
+                {
+                    "Goedgekeurd" => "status-progress",
+                    "Correctie gevraagd" => "status-waiting",
+                    "In productie" => "status-ready",
+                    "Nieuw advies" => "status-new",
+                    _ => "status-default"
+                };
+
                 <tr onclick="location.href='@Url.Page(pageName: "/Planner/PlannerDetail", new { AdviesId = planner.AdviesId })';">
-                    <td>@planner.EindProduct</td>
                     <td>@planner.ArtikelNummer</td>
-                    <td>@planner.ReceptCode</td>
+                    <td>@planner.ArtikelOmschrijving</td>
+                    <td class="@statusClass">@planner.Status</td>
+                    <td>@planner.Soort</td>
+                    <td>@planner.HuidigAantal</td>
                     <td>@planner.AanbevolenAantal</td>
                     <td>@planner.MaximaalAantal</td>
                 </tr>

@@ -54,11 +54,43 @@
 }
 
 .data-container tbody tr:active {
-    background-color: #807e7e;
+    background-color: #6e6d6d;
+    color: #D9D9D9;
 }
 
 /* Table data cells */
 .data-container td {
     padding: 10px 16px;
     vertical-align: middle;
+}
+
+
+/* Order Status colors */
+.status-ready {
+    color: #3c763d;
+    background-color: #f3f7f3;
+    font-weight: 600;
+}
+
+.status-progress {
+    color: #2a628f;
+    background-color: #f1f5fa;
+    font-weight: 600;
+}
+
+.status-waiting {
+    color: #b58900;
+    background-color: #fff9e8;
+    font-weight: 600;
+}
+
+.status-new {
+color: #5f5f5f;              
+    background-color: #f5f5f5; 
+    font-weight: 600;
+}
+
+.status-default {
+    color: black;
+    font-weight: 600;
 }
