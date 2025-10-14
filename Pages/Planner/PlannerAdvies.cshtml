@@ -1,4 +1,5 @@
 @page
+@using Sanibell_ProductionModule.Models
 @model PlannerAdviesModel
 @{
     ViewData["Title"] = "Planner Advies";
@@ -7,46 +8,76 @@
 @section PageStyle {
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
+<form method="post" id="planningForm">
+    <table class="data-container">
+        <thead>
+            <tr>
+                <th>Artikel Nummer</th>
+                <th>Artikel Omschrijving</th>
+                <th>maat</th>
+                <th>kleur</th>
+                <th>Huidige voorraad NL / PL</th>
+                <th>7 dagen</th>
+                <th>14 dagen</th>
+                <th>30 dagen</th>
+                <th>Maximale mogelijke aantal</th>
+                <th>Leverdatum</th>
 
-<table class="data-container">
-    <thead>
-        <tr>
-            <th>Artikel Nummer</th>
-            <th>Artikel Omschrijving</th>
-            <th>Status</th>
-            <th>Soort</th>
-            <th>Huidig aantal</th>
-            <th>Aanbevolen Aantal</th>
-            <th>Maximale aantal</th>
-        </tr>
-    </thead>
-    <tbody> 
-        @if (Model.Planners != null)
-        {
-            var actievePlanners = Model.Planners.Where(p => p.Status != "Afgerond");
+                <th>Aantal</th>
+                <th>Urgent</th>
+                <th>Selectie</th>
 
-            foreach (var planner in actievePlanners)
-            {   
-                // adds color in status cell based on current status 
-                string statusClass = planner.Status switch
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Planners != null)
+            {
+
+                for (int i = 0; i < Model.Planners.Count; i++)
                 {
-                    "Goedgekeurd" => "status-progress",
-                    "Correctie gevraagd" => "status-waiting",
-                    "In productie" => "status-ready",
-                    "Nieuw advies" => "status-new",
-                    _ => "status-default"
-                };
-
-                <tr onclick="location.href='@Url.Page(pageName: "/Planner/PlannerDetail", new { AdviesId = planner.AdviesId })';">
-                    <td>@planner.ArtikelNummer</td>
-                    <td>@planner.ArtikelOmschrijving</td>
-                    <td class="@statusClass">@planner.Status</td>
-                    <td>@planner.Soort</td>
-                    <td>@planner.HuidigAantal</td>
-                    <td>@planner.AanbevolenAantal</td>
-                    <td>@planner.MaximaalAantal</td>
-                </tr>
+                    <tr>
+                        <td>@Model.Planners[i].ArticleNumber</td>
+                        <td>@Model.Planners[i].ArticleDescription</td>
+                        <td>@Model.Planners[i].Size</td>
+                        <td>@Model.Planners[i].Color</td>
+                        <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL</td>
+                        <td>@Model.Planners[i].Recommended7Days</td>
+                        <td>@Model.Planners[i].Recommended14Days</td>
+                        <td>@Model.Planners[i].Recommended30Days</td>
+                        <td>@Model.Planners[i].MaxPossibleProduction</td>
+                        <td>@Model.Planners[i].ReadyDate.ToShortDateString()</td>
+                        <td>
+                            <input type="text" asp-for="@Model.Planners[i].Amount"
+                                placeholder="@Model.Planners[i].Recommended7Days" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="@Model.Planners[i].Urgency" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="@Model.Planners[i].Selection" class="selection-item" />
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <button type="button" id="toggleAll"> Toggle alles</button>
+    <button type="submit" form="planningForm">Orders Aanmaken</button>
+
+</form>
+
+@section Scripts {
+<script>
+document.getElementById('toggleAll').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('.selection-item');
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+    checkboxes.forEach(cb => cb.checked = !allChecked);
+
+    // Update knoptekst
+    this.textContent = !allChecked ? 'Deselecteer alles' : 'Selecteer alles';
+});
+</script>
+}
