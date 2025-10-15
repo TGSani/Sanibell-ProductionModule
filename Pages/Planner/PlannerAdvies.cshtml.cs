@@ -45,38 +45,16 @@ namespace Sanibell_ProductionModule.Pages.Planner
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!Planners.Any(p => p.Selection))
+            // Verwerk geselecteerde orders
+            var selectedOrders = Planners.Where(p => p.Selection).ToList();
+
+            if(!selectedOrders.Any())
             {
                 ModelState.AddModelError(string.Empty, "Selecteer minimaal één order om aan te maken.");
-            }
-
-
-            if (!ModelState.IsValid)
-            {
-                var data = await _planner.GetPlanningAsync();
-                Planners = data.Select(p =>
-                {
-                    var existing = Planners.FirstOrDefault(x => x.ArticleNumber == p.ArticleNumber);
-                    return new PlanningViewModel
-                    {
-                        ArticleNumber = p.ArticleNumber,
-                        ArticleDescription = p.ArticleDescription,
-                        Size = p.Size,
-                        Color = p.Color,
-                        Recommended7Days = p.Recommended7Days,
-                        MaxPossibleProduction = p.MaxPossibleProduction,
-                        ReadyDate = p.ReadyDate,
-                        Amount = existing?.Amount ?? p.Recommended7Days,
-                        Urgency = existing?.Urgency ?? false,
-                        Selection = existing?.Selection ?? false
-                    };
-                }).ToList();
-
                 return Page();
             }
 
-            // Verwerk geselecteerde orders
-            var selectedOrders = Planners.Where(p => p.Selection).ToList();
+
             foreach (var order in selectedOrders)
             {
                 // voorbeeld: log info of stuur naar ERP

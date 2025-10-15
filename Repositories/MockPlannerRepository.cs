@@ -5,8 +5,8 @@ namespace Sanibell_ProductionModule.Repositories;
 
 public class MockPlannerRepository : IPlannerRepository
 {
-    private static List<Planning> _plannings =
-    [
+    private static List<Planning> _plannings = new()
+    {
         new Planning { ArticleNumber = 14234, ArticleDescription = "Wasbak", Size = "254x275", Color = "Red", TotalCurrentStockNL = 0, TotalCurrentStockPL = 5, Recommended7Days = 7, Recommended14Days = 12, Recommended30Days = 40, MaxPossibleProduction = 200, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14235, ArticleDescription = "Kraan", Size = "Standaard", Color = "Chroom", TotalCurrentStockNL = 0, TotalCurrentStockPL = 8, Recommended7Days = 10, Recommended14Days = 16, Recommended30Days = 45, MaxPossibleProduction = 180, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14236, ArticleDescription = "Toiletpot", Size = "Normaal", Color = "Wit", TotalCurrentStockNL = 0, TotalCurrentStockPL = 4, Recommended7Days = 8, Recommended14Days = 14, Recommended30Days = 35, MaxPossibleProduction = 100, ReadyDate = DateTime.Today.AddDays(6) },
@@ -17,17 +17,11 @@ public class MockPlannerRepository : IPlannerRepository
         new Planning { ArticleNumber = 14241, ArticleDescription = "Zeepdispenser", Size = "Klein", Color = "Wit", TotalCurrentStockNL = 0, TotalCurrentStockPL = 7, Recommended7Days = 11, Recommended14Days = 18, Recommended30Days = 42, MaxPossibleProduction = 180, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14242, ArticleDescription = "Toiletrolhouder", Size = "Standaard", Color = "Chroom", TotalCurrentStockNL = 0, TotalCurrentStockPL = 9, Recommended7Days = 12, Recommended14Days = 20, Recommended30Days = 48, MaxPossibleProduction = 200, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14243, ArticleDescription = "Douchestang", Size = "70cm", Color = "Zilver", TotalCurrentStockNL = 0, TotalCurrentStockPL = 3, Recommended7Days = 8, Recommended14Days = 14, Recommended30Days = 36, MaxPossibleProduction = 100, ReadyDate = DateTime.Today.AddDays(6) },
-    ];
+    };
 
 
     public Task<List<Planning>> GetPlanningAsync(CancellationToken ct = default)
     {
         return Task.FromResult(_plannings);
-    }
-
-    Task<List<Planning>> IPlannerRepository.GetByIdAsync(int id, CancellationToken ct)
-    {
-        var plannings = _plannings.Where(u => u.ArticleNumber == id).ToList();
-        return Task.FromResult(plannings);
     }
 }

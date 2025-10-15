@@ -8,9 +8,9 @@
 @section PageStyle {
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
+
 <form method="post" id="planningForm">
-    <!-- Validation Summary -->
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <table class="data-container">
         <thead>
@@ -25,8 +25,6 @@
                 <th>30 dagen</th>
                 <th>Max. order aantal</th>
                 <th>Leverdatum</th>
-
-                @* input fields *@
                 <th>Aantal</th>
                 <th>Urgent</th>
                 <th>Selectie</th>
@@ -36,23 +34,28 @@
             @for (int i = 0; i < Model.Planners.Count; i++)
             {
                 <tr>
-                    <td>@Model.Planners[i].ArticleNumber</td>
-                    <td>@Model.Planners[i].ArticleDescription</td>
-                    <td>@Model.Planners[i].Size</td>
-                    <td>@Model.Planners[i].Color</td>
-                    <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL</td>
-                    <td>@Model.Planners[i].Recommended7Days</td>
-                    <td>@Model.Planners[i].Recommended14Days</td>
-                    <td>@Model.Planners[i].Recommended30Days</td>
-                    <td>@Model.Planners[i].MaxPossibleProduction</td>
-                    <td>@Model.Planners[i].ReadyDate.ToShortDateString()</td>
-
-                    <!-- input fields -->
-                    <td>
-                        <input type="text" asp-for="Planners[i].Amount" class="form-amount"
-                            min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" />
-                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Planners[i].Amount)</span>
+                    <td>@Model.Planners[i].ArticleNumber<input type="hidden" asp-for="Planners[i].ArticleNumber" /></td>
+                    <td>@Model.Planners[i].ArticleDescription<input type="hidden"
+                            asp-for="Planners[i].ArticleDescription" /></td>
+                    <td>@Model.Planners[i].Size<input type="hidden" asp-for="Planners[i].Size" /></td>
+                    <td>@Model.Planners[i].Color<input type="hidden" asp-for="Planners[i].Color" /></td>
+                    <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL
+                        <input type="hidden" asp-for="Planners[i].TotalCurrentStockNL" />
+                        <input type="hidden" asp-for="Planners[i].TotalCurrentStockPL" />
                     </td>
+
+                    <td>@Model.Planners[i].Recommended7Days<input type="hidden" asp-for="Planners[i].Recommended7Days" />
+                    </td>
+                    <td>@Model.Planners[i].Recommended14Days<input type="hidden" asp-for="Planners[i].Recommended14Days" />
+                    </td>
+                    <td>@Model.Planners[i].Recommended30Days<input type="hidden" asp-for="Planners[i].Recommended30Days" />
+                    </td>
+                    <td>@Model.Planners[i].MaxPossibleProduction<input type="hidden"
+                            asp-for="Planners[i].MaxPossibleProduction" /></td>
+                    <td>@Model.Planners[i].ReadyDate.ToShortDateString()<input type="hidden"
+                            asp-for="Planners[i].ReadyDate" /></td>
+                    <td><input type="number" asp-for="Planners[i].Amount" class="form-amount"
+                            min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" /></td>
                     <td><input type="checkbox" asp-for="Planners[i].Urgency" /></td>
                     <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
                 </tr>
