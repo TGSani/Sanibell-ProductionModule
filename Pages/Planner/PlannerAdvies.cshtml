@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
 <form method="post" id="planningForm">
+    <!-- Validation Summary -->
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <table class="data-container">
         <thead>
             <tr>
@@ -20,64 +23,59 @@
                 <th>7 dagen</th>
                 <th>14 dagen</th>
                 <th>30 dagen</th>
-                <th>Maximale mogelijke aantal</th>
+                <th>Max. order aantal</th>
                 <th>Leverdatum</th>
 
+                @* input fields *@
                 <th>Aantal</th>
                 <th>Urgent</th>
                 <th>Selectie</th>
-
-
-
             </tr>
         </thead>
         <tbody>
-            @if (Model.Planners != null)
+            @for (int i = 0; i < Model.Planners.Count; i++)
             {
+                <tr>
+                    <td>@Model.Planners[i].ArticleNumber</td>
+                    <td>@Model.Planners[i].ArticleDescription</td>
+                    <td>@Model.Planners[i].Size</td>
+                    <td>@Model.Planners[i].Color</td>
+                    <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL</td>
+                    <td>@Model.Planners[i].Recommended7Days</td>
+                    <td>@Model.Planners[i].Recommended14Days</td>
+                    <td>@Model.Planners[i].Recommended30Days</td>
+                    <td>@Model.Planners[i].MaxPossibleProduction</td>
+                    <td>@Model.Planners[i].ReadyDate.ToShortDateString()</td>
 
-                for (int i = 0; i < Model.Planners.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.Planners[i].ArticleNumber</td>
-                        <td>@Model.Planners[i].ArticleDescription</td>
-                        <td>@Model.Planners[i].Size</td>
-                        <td>@Model.Planners[i].Color</td>
-                        <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL</td>
-                        <td>@Model.Planners[i].Recommended7Days</td>
-                        <td>@Model.Planners[i].Recommended14Days</td>
-                        <td>@Model.Planners[i].Recommended30Days</td>
-                        <td>@Model.Planners[i].MaxPossibleProduction</td>
-                        <td>@Model.Planners[i].ReadyDate.ToShortDateString()</td>
-                        <td>
-                            <input type="text" asp-for="@Model.Planners[i].Amount"
-                                placeholder="@Model.Planners[i].Recommended7Days" />
-                        </td>
-                        <td>
-                            <input type="checkbox" asp-for="@Model.Planners[i].Urgency" />
-                        </td>
-                        <td>
-                            <input type="checkbox" asp-for="@Model.Planners[i].Selection" class="selection-item" />
-                        </td>
-                    </tr>
-                }
+                    <!-- input fields -->
+                    <td>
+                        <input type="text" asp-for="Planners[i].Amount" class="form-amount"
+                            min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" />
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Planners[i].Amount)</span>
+                    </td>
+                    <td><input type="checkbox" asp-for="Planners[i].Urgency" /></td>
+                    <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
+                </tr>
             }
+
+            <tr>
+                <td colspan="13" style="text-align: right;">
+                    <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
+                    <button class="shadowbox" type="button" id="toggleAll">Selecteer alles</button>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <button type="button" id="toggleAll"> Toggle alles</button>
-    <button type="submit" form="planningForm">Orders Aanmaken</button>
-
 </form>
 
 @section Scripts {
-<script>
-document.getElementById('toggleAll').addEventListener('click', function() {
-    const checkboxes = document.querySelectorAll('.selection-item');
-    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-
-    checkboxes.forEach(cb => cb.checked = !allChecked);
-
-    // Update knoptekst
-    this.textContent = !allChecked ? 'Deselecteer alles' : 'Selecteer alles';
-});
-</script>
+    <script>
+        // Toggle all selectie-checkboxes
+        document.getElementById('toggleAll').addEventListener('click', function () {
+            const checkboxes = document.querySelectorAll('.selection-item');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            this.textContent = !allChecked ? 'Deselecteer alles' : 'Selecteer alles';
+        });
+    </script>
 }

@@ -18,8 +18,6 @@ public class MockOrderRepository : IOrderRepository
         new Order { Id = 8, Status = "In productie", Note = "Order ingetrokken door klant", Amount = 15, CreatedBy = "Marie-Louise", MadeBy = "Thomas" },
         new Order { Id = 9, Status = "In productie", Note = "Extra kwaliteitscontrole vereist", Amount = 60, CreatedBy = "Frank", MadeBy = "Patrick" },
         new Order { Id = 10, Status = "Gereserveerd", Note = "Spoedorder op tijd afgerond", Amount = 25, CreatedBy = "Marie-Louise", MadeBy = "Pietje" }
-
-
     ];
 
     // get all orders

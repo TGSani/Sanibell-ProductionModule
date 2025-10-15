@@ -1,19 +1,19 @@
 namespace Sanibell_ProductionModule.Models;
 
-public sealed class Planning
+public class Planning
 {
-    public required int ArticleNumber { get; init; }
-    public required string ArticleDescription { get; init; }
-    public required string Size { get; init; }
-    public required string Color { get; init; }
-    public required int TotalCurrentStockNL { get; init; }
-    public required int TotalCurrentStockPL { get; init; }
-    public required int Recommended7Days { get; init; }
-    public required int Recommended14Days { get; init; }
-    public required int Recommended30Days { get; init; }
-    public required int MaxPossibleProduction { get; init; }
-    public required DateTime ReadyDate { get; init; }
-    public int? Amount { get; set; } // standaard = RecommendedAmount
-    public bool Urgency { get; set; } = false;
-    public bool Selection { get; set; } = false;
+    public int ArticleNumber { get; init; }
+    public string ArticleDescription { get; init; } = "";
+    public string Size { get; init; } = "";
+    public string Color { get; init; } = "";
+
+    public int TotalCurrentStockNL { get; init; }
+    public int TotalCurrentStockPL { get; init; }
+
+    public int Recommended7Days { get; init; }
+    public int Recommended14Days { get; init; }
+    public int Recommended30Days { get; init; }
+
+    public int MaxPossibleProduction { get; init; }
+    public DateTime ReadyDate { get; init; }
 }
