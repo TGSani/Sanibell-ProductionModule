@@ -19,6 +19,7 @@ namespace Sanibell_ProductionModule.Pages.Admin
             // ViewData flags for displaying buttons in the layout
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
+            ViewData["ReturnUrl"] = Url.Page("/Dashboard");
         }
     }
 

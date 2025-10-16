@@ -24,6 +24,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
             // set ViewData flags for buttons in shared layout
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
+            ViewData["ReturnUrl"] = Url.Page("/Dashboard");
 
             var data = await _planner.GetPlanningAsync();
 

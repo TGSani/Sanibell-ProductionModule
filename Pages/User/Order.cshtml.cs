@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
 using Sanibell_ProductionModule.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sanibell_ProductionModule.Pages.User
 {
@@ -21,6 +22,7 @@ namespace Sanibell_ProductionModule.Pages.User
             // Zet de ViewData flags voor het weergeven van de knoppen in de layout
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
+            ViewData["ReturnUrl"] = Url.Page("/Dashboard");
 
             Orders = await _orders.GetOrdersAsync();
 
