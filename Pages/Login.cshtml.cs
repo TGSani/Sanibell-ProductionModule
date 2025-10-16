@@ -24,17 +24,18 @@ namespace Sanibell_ProductionModule.Pages
         {
             _users = users;
         }
-        // Set header buttons visibility
-        private void SetHeaderButtons()
-        {
-            ViewData["ShowBackButton"] = true;
-            ViewData["ShowLogoutButton"] = false;
-        }
+
 
         // OnGet method to retrieve user by Id and display the login page
         public async Task<IActionResult> OnGetAsync()
         {
-            SetHeaderButtons();
+            ViewData["ShowBackButton"] = true;
+            ViewData["ShowLogoutButton"] = false;
+
+            var referer = Request.Headers["Referer"].ToString();
+            ViewData["ReturnUrl"] = string.IsNullOrEmpty(referer)
+                ? Url.Page("/Index") //fallback
+                : referer;
 
             if (Id > 0)
             {
@@ -49,7 +50,13 @@ namespace Sanibell_ProductionModule.Pages
         // if they match, create the claims and sign in the user
         public async Task<IActionResult> OnPostAsync()
         {
-            SetHeaderButtons();
+            ViewData["ShowBackButton"] = true;
+            ViewData["ShowLogoutButton"] = false;
+
+            var referer = Request.Headers["Referer"].ToString();
+            ViewData["ReturnUrl"] = string.IsNullOrEmpty(referer)
+                ? Url.Page("/Index") //fallback
+                : referer;
 
             Users = await _users.GetByIdAsync(Id);
 
@@ -60,10 +67,10 @@ namespace Sanibell_ProductionModule.Pages
             }
 
             if (string.IsNullOrWhiteSpace(Users.QRcode) || Users.QRcode != ScannedQRValue)
-                {
-                    ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
-                    return Page();
-                }
+            {
+                ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
+                return Page();
+            }
 
             // Make claims
             var claims = new List<Claim>

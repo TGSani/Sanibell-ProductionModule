@@ -1,13 +1,15 @@
 @page
 @using Sanibell_ProductionModule.Models
+@using System.Globalization
 @model PlannerAdviesModel
 @{
     ViewData["Title"] = "Planner Advies";
 }
-
 @section PageStyle {
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
+
+<input class="search-field" type="text" id="searchInput" placeholder="Zoek in alle kolommen" />
 
 <form method="post" id="planningForm">
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -20,9 +22,18 @@
                 <th>maat</th>
                 <th>kleur</th>
                 <th>Huidige voorraad NL / PL</th>
-                <th>7 dagen</th>
-                <th>14 dagen</th>
-                <th>30 dagen</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                    DateTime.Now.AddDays(7), // current week +7 days
+                    CalendarWeekRule.FirstFourDayWeek,
+                    DayOfWeek.Monday)</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                    DateTime.Now.AddDays(14), // current week +14 days
+                    CalendarWeekRule.FirstFourDayWeek,
+                    DayOfWeek.Monday)</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                    DateTime.Now.AddDays(21), // current week + 21 days
+                    CalendarWeekRule.FirstFourDayWeek,
+                    DayOfWeek.Monday)</th>
                 <th>Max. order aantal</th>
                 <th>Leverdatum</th>
                 <th>Aantal</th>
@@ -30,7 +41,7 @@
                 <th>Selectie</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id= "PlannerTableBody">
             @for (int i = 0; i < Model.Planners.Count; i++)
             {
                 <tr>
@@ -60,7 +71,6 @@
                     <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
                 </tr>
             }
-
             <tr>
                 <td colspan="13" style="text-align: right;">
                     <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
@@ -72,13 +82,5 @@
 </form>
 
 @section Scripts {
-    <script>
-        // Toggle all selectie-checkboxes
-        document.getElementById('toggleAll').addEventListener('click', function () {
-            const checkboxes = document.querySelectorAll('.selection-item');
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-            checkboxes.forEach(cb => cb.checked = !allChecked);
-            this.textContent = !allChecked ? 'Deselecteer alles' : 'Selecteer alles';
-        });
-    </script>
+<script src="~/js/PlannerAdvies.js"></script>
 }

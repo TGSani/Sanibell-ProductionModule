@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Sanibell_ProductionModule.Models;
 using Sanibell_ProductionModule.Repositories.Interfaces;
 using Sanibell_ProductionModule.ViewModels;
+
 
 namespace Sanibell_ProductionModule.Pages.Planner
 {
@@ -18,7 +18,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
 
         [BindProperty]
         public List<PlanningViewModel> Planners { get; set; } = new();
-
+    
         public async Task OnGetAsync()
         {
             // set ViewData flags for buttons in shared layout
@@ -45,10 +45,13 @@ namespace Sanibell_ProductionModule.Pages.Planner
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            // Verwerk geselecteerde orders
+            ViewData["ShowBackButton"] = true;
+            ViewData["ShowLogoutButton"] = false;
+
+            // process selected orders
             var selectedOrders = Planners.Where(p => p.Selection).ToList();
 
-            if(!selectedOrders.Any())
+            if (!selectedOrders.Any())
             {
                 ModelState.AddModelError(string.Empty, "Selecteer minimaal één order om aan te maken.");
                 return Page();
@@ -57,7 +60,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
 
             foreach (var order in selectedOrders)
             {
-                // voorbeeld: log info of stuur naar ERP
+                // log info, sending back to ERP later
                 Console.WriteLine($"Artikel {order.ArticleNumber}: Amount={order.Amount}, Urgency={order.Urgency}");
             }
 
