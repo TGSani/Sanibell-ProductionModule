@@ -9,10 +9,14 @@
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
 
-<input class="search-field" type="text" id="searchInput" placeholder="Zoek in alle kolommen" />
 
-<form method="post" id="planningForm">
+
+<form method="post" id="planningForm" class="form-wrapper">
     <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-header">
+        <input class="search-field" type="text" id="searchInput" placeholder="Zoek in alle kolommen" />
+    </div>
 
     <table class="data-container">
         <thead>
@@ -23,17 +27,17 @@
                 <th>kleur</th>
                 <th>Huidige voorraad NL / PL</th>
                 <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                    DateTime.Now.AddDays(7), // current week +7 days
-                    CalendarWeekRule.FirstFourDayWeek,
-                    DayOfWeek.Monday)</th>
+                                        DateTime.Now.AddDays(7), // current week +7 days
+                                        CalendarWeekRule.FirstFourDayWeek,
+                                        DayOfWeek.Monday)</th>
                 <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                    DateTime.Now.AddDays(14), // current week +14 days
-                    CalendarWeekRule.FirstFourDayWeek,
-                    DayOfWeek.Monday)</th>
+                                        DateTime.Now.AddDays(14), // current week +14 days
+                                        CalendarWeekRule.FirstFourDayWeek,
+                                        DayOfWeek.Monday)</th>
                 <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                    DateTime.Now.AddDays(21), // current week + 21 days
-                    CalendarWeekRule.FirstFourDayWeek,
-                    DayOfWeek.Monday)</th>
+                                        DateTime.Now.AddDays(21), // current week + 21 days
+                                        CalendarWeekRule.FirstFourDayWeek,
+                                        DayOfWeek.Monday)</th>
                 <th>Max. order aantal</th>
                 <th>Leverdatum</th>
                 <th>Aantal</th>
@@ -41,7 +45,7 @@
                 <th>Selectie</th>
             </tr>
         </thead>
-        <tbody id= "PlannerTableBody">
+        <tbody id="PlannerTableBody">
             @for (int i = 0; i < Model.Planners.Count; i++)
             {
                 <tr>
@@ -71,16 +75,14 @@
                     <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
                 </tr>
             }
-            <tr>
-                <td colspan="13" style="text-align: right;">
-                    <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
-                    <button class="shadowbox" type="button" id="toggleAll">Selecteer alles</button>
-                </td>
-            </tr>
         </tbody>
     </table>
+    <div class="form-buttons">
+        <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
+        <button class="shadowbox" type="button" id="toggleAll">Selecteer alles</button>
+    </div>
 </form>
 
 @section Scripts {
-<script src="~/js/PlannerAdvies.js"></script>
+    <script src="~/js/PlannerAdvies.js"></script>
 }

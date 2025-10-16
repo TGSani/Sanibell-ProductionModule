@@ -31,6 +31,7 @@ namespace Sanibell_ProductionModule.Pages
         {
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
+            ViewData["ReturnUrl"] = Url.Page("/Index");
 
             var referer = Request.Headers["Referer"].ToString();
             ViewData["ReturnUrl"] = string.IsNullOrEmpty(referer)
@@ -52,11 +53,7 @@ namespace Sanibell_ProductionModule.Pages
         {
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
-
-            var referer = Request.Headers["Referer"].ToString();
-            ViewData["ReturnUrl"] = string.IsNullOrEmpty(referer)
-                ? Url.Page("/Index") //fallback
-                : referer;
+            ViewData["ReturnUrl"] = Url.Page("/Index");
 
             Users = await _users.GetByIdAsync(Id);
 

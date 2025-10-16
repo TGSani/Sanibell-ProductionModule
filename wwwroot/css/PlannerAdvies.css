@@ -11,17 +11,27 @@
   /* border: solid 1px red; */
 }
 
- /* Search field*/
-.search-field {
-  border: 2px solid #000;
-  margin: 20px 10%;
-  float: inline-end;
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
 }
+
+.form-header {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 10%;
+}
+
+.search-field {
+  border: solid 2px black;
+}
+
 
 /* Table styling */
 .data-container {
+  flex: 1 1 auto;
   width: 80%;
-  margin: 50px auto;
+  margin: 0 auto;
   border-collapse: collapse;
   font-family: "Poppins";
   font-size: 14px;
@@ -78,7 +88,7 @@
 }
 
 /* Buttons */
-table button {
+button {
   margin: 10px 5px;
   padding: 10px 20px;
   background-color: #D9D9D9;
@@ -101,9 +111,16 @@ table button {
   background-color: #807e7e;
 }
 
+
 .text-danger {
   color: red;
   margin: 10px auto;
   width: fit-content;
   font-weight: 600;
+}
+
+.form-buttons {
+  margin-top: auto;
+  text-align: right;
+  padding: 10px 10%;
 }
