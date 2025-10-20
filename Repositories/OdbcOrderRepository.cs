@@ -23,14 +23,35 @@ public class OdbcOrderRepository : IOrderRepository
         return conn;
     }
 
-    // LET OP!!! MOET NOG GELEVERD WORDEN!!
-     private static readonly string GetAllSql = """ 
-
-            """;
 
 
     public async Task<IReadOnlyList<Order>> GetOrdersAsync(CancellationToken ct = default)
     {
+        const string GetAllSql = """
+        SELECT   
+            PrdOkNummer AS Id,
+            PrdOkRcptCode AS RcptCode,
+            PrdOkAantalRcpt AS Amount,
+            PrdOkOmschrijving AS Note,
+            CASE
+                WHEN PrdOkStatus = '0' THEN 'Nieuw'
+                WHEN PrdOkStatus = '1' THEN 'In te plannen'
+                WHEN PrdOkStatus = '2' THEN 'Gereserveerd'
+                WHEN PrdOkStatus = '3' THEN 'In productie' 
+                WHEN PrdOkStatus = '4' THEN 'Afgerond'
+                ELSE 'Onbekend'
+            END AS Status,
+            PrdOkTeProducerenVoor AS ProduceBefore,
+            PrdOkAangemaaktDoor AS CreatedBy
+
+
+
+        FROM KingSystem.tabProductieOrderKop
+        WHERE PrdOkStatus NOT IN ('0','1','4')
+        ORDER BY PrdOkNummer
+        """;
+
+
         using var conn = await OpenAsync(ct);
         var rows = await conn.QueryAsync<Order>(GetAllSql);
         return rows.AsList();
