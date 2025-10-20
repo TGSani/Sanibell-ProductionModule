@@ -1,11 +1,10 @@
 using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services.Interfaces;
 using System.Security.Claims;
 
 namespace Sanibell_ProductionModule.Services;
 
 // service to get menu tiles based on user roles
-public sealed class MenuTileService : IMenuTileService
+public sealed class MenuTileService 
 {
     // all tiles
     private static readonly MenuTile[] All =

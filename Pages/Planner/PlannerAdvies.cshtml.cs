@@ -1,7 +1,9 @@
+using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
+using Sanibell_ProductionModule.Services;
 using Sanibell_ProductionModule.ViewModels;
 
 
@@ -11,14 +13,16 @@ namespace Sanibell_ProductionModule.Pages.Planner
     public class PlannerAdviesModel : PageModel
     {
         private readonly IPlannerRepository _planner;
-        public PlannerAdviesModel(IPlannerRepository planner)
+        private readonly ErpService _erpService;
+        public PlannerAdviesModel(IPlannerRepository planner, ErpService erpService)
         {
             _planner = planner;
+            _erpService = erpService;
         }
 
         [BindProperty]
         public List<PlanningViewModel> Planners { get; set; } = new();
-    
+
         public async Task OnGetAsync()
         {
             // set ViewData flags for buttons in shared layout
@@ -58,15 +62,24 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 return Page();
             }
 
-
-            foreach (var order in selectedOrders)
+            try
             {
-                // log info, sending back to ERP later
-                Console.WriteLine($"Artikel {order.ArticleNumber}: Amount={order.Amount}, Urgency={order.Urgency}");
+                foreach (var order in selectedOrders)
+                {
+                    var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
+
+                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Fout bij verzenden: {ex.Message}");
             }
 
-            TempData["Message"] = $"{selectedOrders.Count} orders verwerkt.";
+            TempData["Message"] = $"{selectedOrders.Count} orders succesvol verzonden naar ERP.";
             return RedirectToPage();
+
         }
     }
 

@@ -7,7 +7,7 @@ public class MockPlannerRepository : IPlannerRepository
 {
     private static List<Planning> _plannings = new()
     {
-        new Planning { ArticleNumber = 14234, ArticleDescription = "Wasbak", Size = "254x275", Color = "Red", TotalCurrentStockNL = 0, TotalCurrentStockPL = 5, Recommended7Days = 7, Recommended14Days = 12, Recommended30Days = 40, MaxPossibleProduction = 200, ReadyDate = DateTime.Today.AddDays(5) },
+        new Planning { ArticleNumber = 14234, ArticleDescription = "PC0003", Size = "254x275", Color = "Red", TotalCurrentStockNL = 0, TotalCurrentStockPL = 5, Recommended7Days = 7, Recommended14Days = 12, Recommended30Days = 40, MaxPossibleProduction = 200, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14235, ArticleDescription = "Kraan", Size = "Standaard", Color = "Chroom", TotalCurrentStockNL = 0, TotalCurrentStockPL = 8, Recommended7Days = 10, Recommended14Days = 16, Recommended30Days = 45, MaxPossibleProduction = 180, ReadyDate = DateTime.Today.AddDays(5) },
         new Planning { ArticleNumber = 14236, ArticleDescription = "Toiletpot", Size = "Normaal", Color = "Wit", TotalCurrentStockNL = 0, TotalCurrentStockPL = 4, Recommended7Days = 8, Recommended14Days = 14, Recommended30Days = 35, MaxPossibleProduction = 100, ReadyDate = DateTime.Today.AddDays(6) },
         new Planning { ArticleNumber = 14237, ArticleDescription = "Badkuip", Size = "160x70", Color = "Wit", TotalCurrentStockNL = 0, TotalCurrentStockPL = 1, Recommended7Days = 5, Recommended14Days = 8, Recommended30Days = 25, MaxPossibleProduction = 50, ReadyDate = DateTime.Today.AddDays(7) },

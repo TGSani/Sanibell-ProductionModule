@@ -8,7 +8,7 @@ namespace Sanibell_ProductionModule.Repositories;
 public class OdbcOrderRepository : IOrderRepository
 {
 
-        // connection string
+    // connection string
     private readonly string _cs;
     public OdbcOrderRepository(IConfiguration cfg)
     {
@@ -29,26 +29,29 @@ public class OdbcOrderRepository : IOrderRepository
     {
         const string GetAllSql = """
         SELECT   
-            PrdOkNummer AS Id,
-            PrdOkRcptCode AS RcptCode,
-            PrdOkAantalRcpt AS Amount,
-            PrdOkOmschrijving AS Note,
-            CASE
-                WHEN PrdOkStatus = '0' THEN 'Nieuw'
-                WHEN PrdOkStatus = '1' THEN 'In te plannen'
-                WHEN PrdOkStatus = '2' THEN 'Gereserveerd'
-                WHEN PrdOkStatus = '3' THEN 'In productie' 
-                WHEN PrdOkStatus = '4' THEN 'Afgerond'
-                ELSE 'Onbekend'
-            END AS Status,
-            PrdOkTeProducerenVoor AS ProduceBefore,
-            PrdOkAangemaaktDoor AS CreatedBy
-
-
+        PrdOkNummer AS Id,
+        PrdOkRcptCode AS RcptCode,
+        PrdOkAantalRcpt AS Amount,
+        PrdOkOmschrijving AS Note,
+        CASE
+            WHEN PrdOkStatus = '0' THEN 'Nieuw'
+                    WHEN PrdOkStatus = '1' THEN 'In te plannen'
+                    WHEN PrdOkStatus = '2' THEN 'Gereserveerd'
+                    WHEN PrdOkStatus = '3' THEN 'In productie' 
+                    WHEN PrdOkStatus = '4' THEN 'Afgerond'
+                    ELSE 'Onbekend'
+        END AS Status,
+        PrdOkTeProducerenVoor AS ProduceBefore,
+        VRPRD_CreatedBy AS CreatedBy
 
         FROM KingSystem.tabProductieOrderKop
-        WHERE PrdOkStatus NOT IN ('0','1','4')
-        ORDER BY PrdOkNummer
+        LEFT JOIN KingSystem.vrGetContent('PRD',0,0,'CreatedBy','','')
+            WITH(VRPRD_Gid integer,
+                VRPRD_CreatedBy nchar(20)) 
+                VRPRD ON VRPRD_Gid = PrdOkGid
+            
+            WHERE PrdOkStatus NOT IN ('0','1','4')
+            ORDER BY PrdOkNummer
         """;
 
 
