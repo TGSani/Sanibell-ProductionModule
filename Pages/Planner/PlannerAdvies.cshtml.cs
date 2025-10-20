@@ -52,7 +52,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
             // process selected orders
             var selectedOrders = Planners.Where(p => p.Selection).ToList();
 
-            if (!selectedOrders.Any())
+            if (selectedOrders.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "Selecteer minimaal één order om aan te maken.");
                 return Page();
