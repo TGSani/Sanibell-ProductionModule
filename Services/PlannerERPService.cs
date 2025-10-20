@@ -6,12 +6,12 @@ using Sanibell_ProductionModule.ViewModels;
 
 namespace Sanibell_ProductionModule.Services
 {
-    public class ErpService
+    public class PlannerErpService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _config;
 
-        public ErpService(IHttpClientFactory httpClientFactory, IConfiguration config)
+        public PlannerErpService(IHttpClientFactory httpClientFactory, IConfiguration config)
         {
             _httpClientFactory = httpClientFactory;
             _config = config;
@@ -72,7 +72,7 @@ namespace Sanibell_ProductionModule.Services
                 var firstItem = root[0];
                 if (firstItem.TryGetProperty("ProductieorderNummer", out var orderNumberElement))
                 {
-                    return orderNumberElement.GetRawText(); // Of GetString() als het een string is
+                    return orderNumberElement.GetRawText(); // Or GetString() if string
                 }
             }
 
@@ -91,6 +91,41 @@ namespace Sanibell_ProductionModule.Services
             var payload = new
             {
                 ProductieorderNummer = productieorderNummer
+            };
+
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content
+            };
+            request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
+
+            var response = await client.SendAsync(request);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Unlock Order response: {response.StatusCode} - {responseBody}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException($"Fout bij unlocken productieorder: {response.StatusCode} - {responseBody}");
+        }
+
+        public async Task ProductionOrderVRAsync(string productieorderNummer, string gebruiker)
+        {
+            // Building URL
+            var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
+            var token = _config["PlannerERPSettings:MadeBy_Order_Secret"];
+            var relativePath = "Productieorder_VrijeRubriek_Wijzigen";
+
+            var url = new Uri(new Uri(baseUrl + "/"), relativePath);
+
+            var payload = new
+            {
+                ProductieorderNummer = productieorderNummer,
+                RubriekOmschrijving = "CreatedBy",
+                RubriekInhoud = gebruiker
             };
 
             var json = JsonSerializer.Serialize(payload);

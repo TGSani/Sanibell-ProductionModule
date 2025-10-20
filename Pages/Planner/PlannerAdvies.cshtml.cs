@@ -13,8 +13,8 @@ namespace Sanibell_ProductionModule.Pages.Planner
     public class PlannerAdviesModel : PageModel
     {
         private readonly IPlannerRepository _planner;
-        private readonly ErpService _erpService;
-        public PlannerAdviesModel(IPlannerRepository planner, ErpService erpService)
+        private readonly PlannerErpService _erpService;
+        public PlannerAdviesModel(IPlannerRepository planner, PlannerErpService erpService)
         {
             _planner = planner;
             _erpService = erpService;
@@ -67,6 +67,11 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 foreach (var order in selectedOrders)
                 {
                     var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
+
+                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+
+                    var gebruiker = User.Identity?.Name ?? "Onbekend";
+                    await _erpService.ProductionOrderVRAsync(productieorderNummer, gebruiker);
 
                     await _erpService.UnlockProductionOrderAsync(productieorderNummer);
                 }
