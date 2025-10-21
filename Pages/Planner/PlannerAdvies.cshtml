@@ -72,7 +72,7 @@
                     <td><input type="number" asp-for="Planners[i].Amount" class="form-amount"
                             min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" /></td>
                     <td>
-                        <input type="checkbox" asp-for="Planners[i].Urgency" value="True" class="urgency-item" />
+                        <input type="checkbox" asp-for="Planners[i].Urgency" class="urgency-item" />
                     </td>
                     <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
                 </tr>
