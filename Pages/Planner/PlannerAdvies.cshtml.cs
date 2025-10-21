@@ -62,27 +62,44 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 return Page();
             }
 
-            try
+            int successCount = 0;
+            var failedOrders = new List<string>();
+
+            foreach (var order in selectedOrders)
             {
-                foreach (var order in selectedOrders)
+                try
                 {
                     var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
 
                     await _erpService.UnlockProductionOrderAsync(productieorderNummer);
 
                     var gebruiker = User.Identity?.Name ?? "Onbekend";
-                    await _erpService.ProductionOrderVRAsync(productieorderNummer, gebruiker);
+                    await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker);
 
                     await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+
+                    var Urgency = order.Urgency;
+                    await _erpService.ProductionOrderUrgencyAsync(productieorderNummer, Urgency);
+
+                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+
+                    successCount++;
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine($"ERP fout bij order {order.ArticleNumber}: {ex.Message}");
                 }
 
             }
-            catch (Exception ex)
+
+            TempData["Message"] = $"{selectedOrders.Count} orders succesvol verzonden.";
+
+            if (failedOrders.Any())
             {
-                ModelState.AddModelError(string.Empty, $"Fout bij verzenden: {ex.Message}");
+                ModelState.AddModelError(string.Empty,
+                    $"Fouten bij de volgende orders: {string.Join(", ", failedOrders)}");
             }
 
-            TempData["Message"] = $"{selectedOrders.Count} orders succesvol verzonden naar ERP.";
             return RedirectToPage();
 
         }

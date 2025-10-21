@@ -17,6 +17,7 @@
             <th>Omschrijving</th>
             <th>aantal</th>
             <th>aangemaakt door</th>
+            <th>Urgentie</th>
             <th>Produceren voor</th>
         </tr>
     </thead>
@@ -34,13 +35,16 @@
                     _ => "status-default"
                 };
 
-                <tr onclick="location.href='@Url.Page("/User/OrderDetail", new { orderId = order.Id})';">
+                
+
+                <tr class="" onclick="location.href='@Url.Page("/User/OrderDetail", new { orderId = order.Id})';">
                     <td>@order.Id</td>
                     <td>@order.RcptCode</td>
                     <td class="@statusClass">@order.Status</td>
                     <td>@order.Note</td>
                     <td>@order.Amount</td>
                     <td>@order.CreatedBy</td>
+                    <td>@(@order.Urgency ? "Ja": "Nee")</td>
                     <td>@order.ProduceBefore.ToShortDateString()</td>
                 </tr>
             }

@@ -41,13 +41,21 @@ public class OdbcOrderRepository : IOrderRepository
             ELSE 'Onbekend'
         END AS Status,
         PrdOkTeProducerenVoor AS ProduceBefore,
-        VRPRD_CreatedBy AS CreatedBy
+        VRPRD_CreatedBy AS CreatedBy,
+        VRPRD_Urgency AS Urgency
 
         FROM KingSystem.tabProductieOrderKop
-        LEFT JOIN KingSystem.vrGetContent('PRD',0,0,'CreatedBy','','')
-            WITH(VRPRD_Gid integer,
-            VRPRD_CreatedBy nchar(20)) 
-            VRPRD ON VRPRD_Gid = PrdOkGid
+        LEFT JOIN KingSystem.vrGetContent('PRD',0,0,
+                                            'CreatedBy,
+                                            Urgency'
+                                            
+                                            ,'','')
+                                            WITH(VRPRD_Gid integer
+                                            ,VRPRD_CreatedBy nchar(20)
+                                            ,VRPRD_Urgency nchar(20)
+                                            ) VRPRD ON VRPRD_Gid = PrdOkGid
+            WHERE PrdOkStatus NOT IN ('0','1','4')
+            ORDER BY PrdOkNummer
         WHERE PrdOkNummer = ?
         """;
 
@@ -74,14 +82,19 @@ public class OdbcOrderRepository : IOrderRepository
             ELSE 'Onbekend'
         END AS Status,
         PrdOkTeProducerenVoor AS ProduceBefore,
-        VRPRD_CreatedBy AS CreatedBy
+        VRPRD_CreatedBy AS CreatedBy,
+        VRPRD_Urgency AS Urgency
 
         FROM KingSystem.tabProductieOrderKop
-        LEFT JOIN KingSystem.vrGetContent('PRD',0,0,'CreatedBy','','')
-            WITH(VRPRD_Gid integer,
-                VRPRD_CreatedBy nchar(20)) 
-                VRPRD ON VRPRD_Gid = PrdOkGid
-            
+        LEFT JOIN KingSystem.vrGetContent('PRD',0,0,
+                                            'CreatedBy,
+                                            Urgency'
+                                            
+                                            ,'','')
+                                            WITH(VRPRD_Gid integer
+                                            ,VRPRD_CreatedBy nchar(20)
+                                            ,VRPRD_Urgency nchar(20)
+                                            ) VRPRD ON VRPRD_Gid = PrdOkGid
             WHERE PrdOkStatus NOT IN ('0','1','4')
             ORDER BY PrdOkNummer
         """;

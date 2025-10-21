@@ -112,7 +112,7 @@ namespace Sanibell_ProductionModule.Services
                 throw new HttpRequestException($"Fout bij unlocken productieorder: {response.StatusCode} - {responseBody}");
         }
 
-        public async Task ProductionOrderVRAsync(string productieorderNummer, string gebruiker)
+        public async Task ProductionOrderCreatedByAsync(string productieorderNummer, string gebruiker)
         {
             // Building URL
             var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
@@ -144,7 +144,42 @@ namespace Sanibell_ProductionModule.Services
             Console.WriteLine($"Unlock Order response: {response.StatusCode} - {responseBody}");
 
             if (!response.IsSuccessStatusCode)
-                throw new HttpRequestException($"Fout bij unlocken productieorder: {response.StatusCode} - {responseBody}");
+                throw new HttpRequestException($"Fout bij aanpassen Creator: {response.StatusCode} - {responseBody}");
+        }
+
+        public async Task ProductionOrderUrgencyAsync(string productieorderNummer, bool Urgency)
+        {
+            // Building URL
+            var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
+            var token = _config["PlannerERPSettings:MadeBy_Order_Secret"];
+            var relativePath = "Productieorder_VrijeRubriek_Wijzigen";
+
+            var url = new Uri(new Uri(baseUrl + "/"), relativePath);
+
+            var payload = new
+            {
+                ProductieorderNummer = productieorderNummer,
+                RubriekOmschrijving = "Urgency",
+                RubriekInhoud = Urgency
+            };
+
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content
+            };
+            request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
+
+            var response = await client.SendAsync(request);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Unlock Order response: {response.StatusCode} - {responseBody}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException($"Fout bij aanpassen Urgentie: {response.StatusCode} - {responseBody}");
         }
     }
 }

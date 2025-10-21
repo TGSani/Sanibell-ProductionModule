@@ -9,5 +9,6 @@ public sealed class Order
     public required string Note { get; init; }
     public required int Amount { get; init; }
     public required string CreatedBy { get; init; }
+    public required bool Urgency { get; init; }
     public required DateTime ProduceBefore { get; init; }
 }

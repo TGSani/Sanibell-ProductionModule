@@ -21,4 +21,7 @@ public class PlanningViewModel
     public int Amount { get; set; }
     public bool Urgency { get; set; }
     public bool Selection { get; set; }
+
+    
+
 }
