@@ -32,7 +32,7 @@ public class OrderDetailModel : PageModel
         if (OrderId > 0)
         {
             Order = await _orderRepo.GetByIdAsync(OrderId);
-            Details = await _detailRepo.GetDetailByIdAsync(OrderId);
+            // Details = await _detailRepo.GetDetailByIdAsync(Id);
         }
     }
 }

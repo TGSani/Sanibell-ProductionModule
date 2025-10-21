@@ -23,14 +23,7 @@ public class OdbcOrderDetailRepository : IOrderDetailRepository
     }
 
     private static readonly string GetByIdSql = """ 
-        SELECT 
-            Id,
-            OrderNumber,
-            ProductName,
-            Quantity,
-            Status
-        FROM OrderDetails
-        WHERE Id = ?
+
         """;
 
     public async Task<IReadOnlyList<OrderDetail>> GetDetailByIdAsync(int id, CancellationToken ct = default)

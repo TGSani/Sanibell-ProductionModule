@@ -37,7 +37,7 @@
 
                 
 
-                <tr class="" onclick="location.href='@Url.Page("/User/OrderDetail", new { orderId = order.Id})';">
+                <tr class="" onclick="location.href='@Url.Page("/User/OrderDetail", new { OrderId = order.Id})';">
                     <td>@order.Id</td>
                     <td>@order.RcptCode</td>
                     <td class="@statusClass">@order.Status</td>
