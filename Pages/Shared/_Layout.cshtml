@@ -20,23 +20,31 @@
         </div>
 
         @{
-            // Lees de flags uit ViewData
+            // Read the flags from ViewData
             bool showBackButton = ViewData["ShowBackButton"] as bool? ?? false;
             bool showLogoutButton = ViewData["ShowLogoutButton"] as bool? ?? false;
+
+            // optional ReturnUrl
+            string? returnUrl = ViewData["ReturnUrl"] as string;
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {   
+                // If no ReturnUrl, go back to Index
+                returnUrl = Url.Page("/Index");
+            }
         }
 
         <div class="button-container ">
             @if (showBackButton)
             {
-                <button onclick="history.back()" class="header-buttons shadowbox">
-                    <img class="icon" src="icons/Back.png" />
-                </button>
+                <a href="@returnUrl" class="header-buttons shadowbox">
+                    <img class="icon" src="~/icons/Back.png" alt="Back" />
+                </a>
             }
             else if (showLogoutButton || (User?.Identity?.IsAuthenticated == true))
             {
                 <form method="post" asp-page="/Logout">
                     <button type="submit" class="header-buttons shadowbox">
-                        <img class="icon" src="icons/Log_out.png" />
+                        <img class="icon" src="~/icons/Log_out.png" />
                     </button>
                 </form>
             }

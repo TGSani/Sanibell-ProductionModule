@@ -1,18 +1,33 @@
-using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.Services;
-using Microsoft.Extensions.Options;
+using Sanibell_ProductionModule.Repositories.Interfaces;
+using Sanibell_ProductionModule.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 // DI for user service
-builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); // mock
-// builder.Services.AddScoped<IUsersRepository, OdbcUserRepository>(); // db
-builder.Services.AddScoped<IMenuTileService, MenuTileService>();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
+builder.Services.AddScoped<MenuTileService>();
+builder.Services.AddScoped<PlannerErpService>();
+builder.Services.AddScoped<IOrderRepository, OdbcOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
+builder.Services.AddScoped<IProductionRepository, MockProductionRepository>(); // switch between "MockProductionRepository" and "OdbcProductionRepository" here
+builder.Services.AddScoped<IPlannerRepository, MockPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
 
 
-builder.Services.AddAuthorization();
+
+// policy based authorization
+builder.Services.AddAuthorization( options =>
+{
+    options.AddPolicy("RequireProductionRole",
+         policy => policy.RequireRole("ProductieMedewerker", "Planner", "Administrator"));
+    options.AddPolicy("RequirePlannerRole",
+         policy => policy.RequireRole("Planner", "Administrator"));
+     options.AddPolicy("RequireAdministratorRole",
+         policy => policy.RequireRole("Administrator"));
+});
 
 // Cookie authentication
 builder.Services.AddAuthentication("CookieAuth")

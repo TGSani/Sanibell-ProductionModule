@@ -1,0 +1,49 @@
+@page
+@model OrderModel
+@{
+    ViewData["Title"] = "Productie Orders";
+}
+
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/userOrder.css" />
+}
+
+<table class="data-container">
+    <thead>
+        <tr>
+            <th>Order nummer</th>
+            <th>Receptcode</th>
+            <th>Status</th>
+            <th>Omschrijving</th>
+            <th>aantal</th>
+            <th>aangemaakt door</th>
+            <th>Produceren voor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Orders != null)
+        {
+            foreach (Models.Order order in Model.Orders)
+            {
+                string statusClass = order.Status switch
+                {
+                    "Afgerond" => "status-ready",
+                    "In productie" => "status-progress",
+                    "Gereserveerd" => "status-waiting",
+                    "Geannuleerd" => "status-cancelled",
+                    _ => "status-default"
+                };
+
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.RcptCode</td>
+                    <td class="@statusClass">@order.Status</td>
+                    <td>@order.Note</td>
+                    <td>@order.Amount</td>
+                    <td>@order.CreatedBy</td>
+                    <td>@order.ProduceBefore.ToShortDateString()</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

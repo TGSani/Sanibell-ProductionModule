@@ -9,16 +9,14 @@
 }
 
 <div class="welcome-container">
-    <img  class="login-icon" src="icons/User.png" />
-    <h2 class="text-center">Welkom @(Model.Users?.Name)!</h2>
+    <img src="icons/User.png" />
+    <h2>Welkom @(Model.Users?.Name)!</h2>
 </div>
 
-<div class="scan-container padding-25">
-    <h1 class="scan-text text-center">Scan hier uw QR code</h1>
-    <p class="scan-text-p text-center tile-divider">Houd uw QR code voor de scanner</p>
+<div class="scan-container">
+    <h1 class="scan-text">Scan hier uw QR code</h1>
+    <p class="scan-text-p">Houd uw QR code voor de scanner</p>
 </div>
-
-<div></div>
 
 <form method="post">
     <input type="hidden" asp-for="Id" />
@@ -30,7 +28,7 @@
     <p class="error-text" style="color:red;">@ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage</p>
 }
 
-<!-- onzichtbaar inloggen (als het goed is weet ik hoe een scanner werkt) ---> 
+<!-- invisible login script ---> 
 @section Scripts {
 <script src="~/js/QR-Login.js"></script>
 }

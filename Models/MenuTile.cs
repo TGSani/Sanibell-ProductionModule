@@ -1,4 +1,6 @@
 namespace Sanibell_ProductionModule.Models;
+
+// data voor de menu tegels op het dashboard
 public sealed class MenuTile
 {
     public required string Title { get; init; }
