@@ -1,6 +1,6 @@
 namespace Sanibell_ProductionModule.Models;
 
-public sealed class Production
+public sealed class OrderDetail
 {
     public required int Id { get; init; }
     public required string Recept { get; set; }

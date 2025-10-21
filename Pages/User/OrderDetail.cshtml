@@ -1,0 +1,18 @@
+@page
+@model OrderDetailModel
+@{
+    ViewData["Title"] = "Order Details ";
+}
+
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/userOrderDetail.css" />
+}
+
+<div>
+    <p>Order Nummer: @Model.Order?.Id</p>
+    <p>ReceptCode: @Model.Order?.RcptCode</p>
+    <p>Status: @Model.Order?.Status</p>
+    <p>Omschrijving: @Model.Order?.Note</p>
+    <p>Aantal: @Model.Order?.Amount</p>
+    
+</div>
