@@ -1,20 +1,20 @@
 /* Basics */
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  font-family: "Poppins";
-  font-weight: 400;
-  font-style: normal;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins";
+    font-weight: 400;
+    font-style: normal;
 
-  /* Debug */
-  /* border: solid 1px red; */
+    /* Debug */
+    /* border: solid 1px red; */
 }
 
 /* Links */
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 /* Table styling */
@@ -59,33 +59,57 @@ a {
     padding: 10px 16px;
     vertical-align: middle;
 }
-
+.number-align {
+    text-align: right;
+}
 /* Order Status colors */
-.status-ready {
+.urgency-no {
     color: #3c763d;
     background-color: #f3f7f3;
     font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 
 .status-progress {
     color: #2a628f;
     background-color: #f1f5fa;
     font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 
 .status-waiting {
     color: #b58900;
     background-color: #fff9e8;
     font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 
-.status-cancelled {
+.urgency-yes {
     color: #8a1c1c;
     background-color: #f9e8e8;
     font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 
 .status-default {
     color: black;
     font-weight: 600;
+}
+
+
+.data-container tbody tr:hover {
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+
+.data-container tbody tr:active {
+    background-color: #807e7e;
 }

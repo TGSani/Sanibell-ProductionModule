@@ -35,16 +35,23 @@
                     _ => "status-default"
                 };
 
-                
-
-                <tr class="" onclick="location.href='@Url.Page("/User/OrderDetail", new { OrderId = order.Id})';">
-                    <td>@order.Id</td>
-                    <td>@order.RcptCode</td>
-                    <td class="@statusClass">@order.Status</td>
+                <tr onclick="location.href='@Url.Page("/User/OrderDetail", new { OrderId = order.Id })';">
+                    <td class="number-align">@order.Id</td>
+                    <td >@order.RcptCode</td>
+                    <td><span class="@statusClass">@order.Status</span></td>
                     <td>@order.Note</td>
-                    <td>@order.Amount</td>
+                    <td class="number-align">@order.Amount</td>
                     <td>@order.CreatedBy</td>
-                    <td>@(@order.Urgency ? "Ja": "Nee")</td>
+                    <td>
+                        @if (order.Urgency)
+                        {
+                            <span class="urgency-yes">Urgent !</span>
+                        }
+                        else
+                        {
+                            <span class="urgency-no">Nee</span>
+                        }
+                    </td>
                     <td>@order.ProduceBefore.ToShortDateString()</td>
                 </tr>
             }

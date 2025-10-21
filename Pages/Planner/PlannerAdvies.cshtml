@@ -67,7 +67,7 @@
                     </td>
                     <td>@Model.Planners[i].MaxPossibleProduction<input type="hidden"
                             asp-for="Planners[i].MaxPossibleProduction" /></td>
-                    <td>@Model.Planners[i].ReadyDate.ToShortDateString()<input type="hidden"
+                    <td>@Model.Planners[i].ReadyDate<input type="hidden"
                             asp-for="Planners[i].ReadyDate" /></td>
                     <td><input type="number" asp-for="Planners[i].Amount" class="form-amount"
                             min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" /></td>
