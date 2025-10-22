@@ -15,7 +15,7 @@ public class PlanningViewModel
     public int Recommended30Days { get; set; }
     
     public int MaxPossibleProduction { get; set; }
-    public string ReadyDate { get; set; }
+    public string? ReadyDate { get; set; }
 
     // editable velden
     public int Amount { get; set; }

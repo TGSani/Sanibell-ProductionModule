@@ -62,6 +62,9 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 return Page();
             }
 
+            TempData["Message"] = "Orders worden verzonden...";
+            TempData["MessageType"] = "info";
+
             int successCount = 0;
             var failedOrders = new List<string>();
 
@@ -71,33 +74,40 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 {
                     var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
 
-                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
 
                     var gebruiker = User.Identity?.Name ?? "Onbekend";
                     await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker);
 
-                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
 
                     var Urgency = order.Urgency;
                     await _erpService.ProductionOrderUrgencyAsync(productieorderNummer, Urgency);
 
-                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
+                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
+                    // unlock mogelijk alleen nodig aan het einde, test op locatie
 
                     successCount++;
                 }
                 catch (HttpRequestException ex)
                 {
+                    failedOrders.Add(order.ArticleNumber.ToString());
                     Console.WriteLine($"ERP fout bij order {order.ArticleNumber}: {ex.Message}");
                 }
 
             }
 
-            TempData["Message"] = $"{selectedOrders.Count} orders succesvol verzonden.";
-
             if (failedOrders.Any())
             {
-                ModelState.AddModelError(string.Empty,
-                    $"Fouten bij de volgende orders: {string.Join(", ", failedOrders)}");
+                TempData["Message"] = 
+                $"{successCount} van de {selectedOrders.Count} order(s) succesvol verzonden." +
+                $" Fouten bij : {string.Join(", ", failedOrders)}";
+                TempData["MessageType"] = "error";
+            }
+            else
+            {
+                TempData["Message"] = $"{successCount} order(s) succesvol verzonden.";
+                TempData["MessageType"] = "success";
             }
 
             return RedirectToPage();

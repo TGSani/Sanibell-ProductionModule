@@ -17,6 +17,7 @@ namespace Sanibell_ProductionModule.Services
             _config = config;
         }
 
+        // Sends a production order to the ERP system and returns the created order number
         public async Task<string> SendProductionOrderToErpAsync(PlanningViewModel planning)
         {
             // Building URL
@@ -80,6 +81,7 @@ namespace Sanibell_ProductionModule.Services
             throw new Exception("Response bevat geen geldig ProductieorderNummer");
         }
 
+        // Unlocks a production order in the ERP system
         public async Task UnlockProductionOrderAsync(string productieorderNummer)
         {
             // Building URL
@@ -113,6 +115,7 @@ namespace Sanibell_ProductionModule.Services
                 throw new HttpRequestException($"Fout bij unlocken productieorder: {response.StatusCode} - {responseBody}");
         }
 
+        // Updates the 'CreatedBy' field of a production order in the ERP system
         public async Task ProductionOrderCreatedByAsync(string productieorderNummer, string gebruiker)
         {
             // Building URL
@@ -148,6 +151,7 @@ namespace Sanibell_ProductionModule.Services
                 throw new HttpRequestException($"Fout bij aanpassen Creator: {response.StatusCode} - {responseBody}");
         }
 
+        // Updates the 'Urgency' field of a production order in the ERP system
         public async Task ProductionOrderUrgencyAsync(string productieorderNummer, bool Urgency)
         {
             // Building URL

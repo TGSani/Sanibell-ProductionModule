@@ -15,5 +15,5 @@ public class Planning
     public int Recommended30Days { get; init; }
 
     public int MaxPossibleProduction { get; init; }
-    public string ReadyDate { get; init; }
+    public string? ReadyDate { get; init; }
 }

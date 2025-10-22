@@ -9,11 +9,7 @@
     <link rel="stylesheet" href="~/css/PlannerAdvies.css" />
 }
 
-
-
 <form method="post" id="planningForm" class="form-wrapper">
-    <div asp-validation-summary="All" class="text-danger"></div>
-
     <div class="form-header">
         <input class="search-field" type="text" id="searchInput" placeholder="Zoek in alle kolommen" />
     </div>
@@ -80,6 +76,16 @@
         </tbody>
     </table>
     <div class="form-buttons">
+     @if (TempData["Message"] != null)
+    {
+        var type = TempData["MessageType"]?.ToString() ?? "info";
+        <div class="alert alert-@type">
+            @TempData["Message"]
+        </div>
+    }
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div id="loading" style="display:none;">Orders worden verzonden...</div>
         <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
         <button class="shadowbox" type="button" id="toggleAll">Selecteer alles</button>
     </div>

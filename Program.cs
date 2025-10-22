@@ -12,7 +12,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
 builder.Services.AddScoped<MenuTileService>();
 builder.Services.AddScoped<PlannerErpService>();
-builder.Services.AddScoped<IOrderRepository, OdbcOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
+builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 builder.Services.AddScoped<IOrderDetailRepository, MockOrderDetailRepository>(); // switch between "MockProductionRepository" and "OdbcProductionRepository" here
 builder.Services.AddScoped<IPlannerRepository, MockPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
 
