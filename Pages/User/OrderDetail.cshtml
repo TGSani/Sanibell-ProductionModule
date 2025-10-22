@@ -8,11 +8,65 @@
     <link rel="stylesheet" href="~/css/userOrderDetail.css" />
 }
 
-<div>
-    <p>Order Nummer: @Model.Order?.Id</p>
-    <p>ReceptCode: @Model.Order?.RcptCode</p>
-    <p>Status: @Model.Order?.Status</p>
-    <p>Omschrijving: @Model.Order?.Note</p>
-    <p>Aantal: @Model.Order?.Amount</p>
-    
+<div class="content-wrapper">
+    <table class="data-container">
+        <thead>
+            <tr>
+                <th>Order nummer</th>
+                <th>Recept Code</th>
+                <th>Omschrijving</th>
+                <th>aantal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="number-align">@Model.Order?.Id</td>
+                <td>@Model.Order?.RcptCode</td>
+                <td>@Model.Order?.Note</td>
+                <td class="number-align">@Model.Order?.Amount</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="data-container">
+        <thead>
+            <tr>
+                <th>Components</th>
+                <th>aantal</th>
+                <th>locatie code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.Details != null)
+            {
+                foreach (var item in Model.Details)
+                {
+                    <tr>
+                        <td>@item.Component</td>
+                        <td>@item.Aantal</td>
+                        <td>@item.Locatie</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <table class="data-container">
+        <thead>
+            <tr>
+                <th>Order nummer</th>
+                <th>Recept Code</th>
+                <th>Omschrijving</th>
+                <th>aantal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="number-align">@Model?.Order?.Id</td>
+                <td>@Model?.Order?.RcptCode</td>
+                <td>@Model?.Order?.Note</td>
+                <td class="number-align">@Model?.Order?.Amount</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

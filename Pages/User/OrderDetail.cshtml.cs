@@ -20,8 +20,8 @@ public class OrderDetailModel : PageModel
     [BindProperty(SupportsGet = true)]
     public int OrderId { get; set; }
 
-    public Order? Order { get; private set; }
-    public IReadOnlyList<OrderDetail>? Details { get; private set; }
+    public Order? Order { get; set; }
+    public required IReadOnlyList<OrderDetail> Details { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -32,7 +32,7 @@ public class OrderDetailModel : PageModel
         if (OrderId > 0)
         {
             Order = await _orderRepo.GetByIdAsync(OrderId);
-            // Details = await _detailRepo.GetDetailByIdAsync(Id);
+            Details = await _detailRepo.GetDetailByIdAsync(OrderId);
         }
     }
 }
