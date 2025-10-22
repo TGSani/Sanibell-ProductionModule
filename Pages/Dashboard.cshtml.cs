@@ -17,8 +17,6 @@ namespace Sanibell_ProductionModule.Pages
         {
             _menuTileService = menuTileService;
         }
-
-       
         public void OnGet()
         {
             // ViewData flags for displaying buttons in the layout
@@ -27,12 +25,6 @@ namespace Sanibell_ProductionModule.Pages
 
             //get all users to display on the index page
             Tiles = _menuTileService.GetTilesFor(User).ToList();
-        }
-
-
-        public void OnPost()
-        {
-            
         }
     }
 }

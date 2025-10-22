@@ -24,7 +24,6 @@ namespace Sanibell_ProductionModule.Services
             var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
             var token = _config["PlannerERPSettings:Add_Order_Secret"];
             var relativePath = "Productieorder_Toevoegen";
-
             var url = new Uri(new Uri(baseUrl + "/"), relativePath);
 
             // Building Payload 
@@ -40,26 +39,22 @@ namespace Sanibell_ProductionModule.Services
 
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
             var client = _httpClientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, url)
             {
                 Content = content
             };
-
+            
             request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
 
             // send en processing response 
             var response = await client.SendAsync(request);
-
             // Debugging: log request + response
             var responseBody = await response.Content.ReadAsStringAsync();
             var requestBody = await request.Content.ReadAsStringAsync();
 
             Console.WriteLine($"Request URL: {url}");
             Console.WriteLine($"Request Body: {requestBody}");
-            Console.WriteLine($"Response Status: {response.StatusCode}");
-            Console.WriteLine($"Response Body: {responseBody}");
 
             if (!response.IsSuccessStatusCode)
             {

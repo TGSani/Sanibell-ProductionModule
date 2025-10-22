@@ -43,13 +43,11 @@
   background-color: white;
   border-radius: 0 0 10px 10px;
   align-items: center;
-
 }
 
 .tile-username {
   font-size: 48px;
   text-align: center;
-
 }
 
 .tile-divider {

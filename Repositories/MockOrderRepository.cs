@@ -19,7 +19,6 @@ public class MockOrderRepository : IOrderRepository
         new Order { Id = 9, RcptCode = "53B2-3", Status = "In productie", Note = "naam en/of omschrijving eindproduct", Amount = 60, CreatedBy = "Frank", Urgency=true, ProduceBefore = new DateTime(2025,10,22).Date },
         new Order { Id = 10, RcptCode = "53B2-3", Status = "Gereserveerd", Note = "naam en/of omschrijving eindproduct", Amount = 25, CreatedBy = "Marie-Louise", Urgency=true, ProduceBefore = new DateTime(2025,10,22).Date }
     ];
-
     // get all orders
     public Task<IReadOnlyList<Order>> GetOrdersAsync(CancellationToken ct = default)
          => Task.FromResult(_orders);

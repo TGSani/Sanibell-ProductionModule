@@ -57,7 +57,6 @@ public class OdbcOrderRepository : IOrderRepository
             ORDER BY PrdOkNummer
         """;
 
-
         using var conn = await OpenAsync(ct);
         var rows = await conn.QueryAsync<Order>(GetAllSql);
         return rows.AsList();

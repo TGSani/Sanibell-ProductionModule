@@ -14,7 +14,6 @@ public sealed class MenuTileService
         new() { Title="Config", Description="Configuratie instellingen wijzigen", Icon="/icons/Settings.png", Href="/Admin/Index", Roles = ["Administrator"] }
     ];
 
-
     // get tiles for user based on roles
     public IEnumerable<MenuTile> GetTilesFor(ClaimsPrincipal user)
     {
@@ -22,8 +21,6 @@ public sealed class MenuTileService
             return All.Where(t => t.Roles.Length == 0); 
 
         var userRoles = user.FindAll(ClaimTypes.Role).Select(c => c.Value).ToHashSet(StringComparer.OrdinalIgnoreCase); 
-
         return All.Where(t => t.Roles.Length == 0 || t.Roles.Any(userRoles.Contains));
     }
-
 }

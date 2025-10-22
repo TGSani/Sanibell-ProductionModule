@@ -21,7 +21,6 @@ public class MockUserRepository : IUsersRepository
         new User { Id = 10, Name = "Marie-Louise", Role = "Planner", QRcode = "223"},
         new User { Id = 12, Name = "QR-Test", Role = "Administrator", QRcode = /* QR code opvragen*/"1"}
     ];
-    
     // get all users
     public Task<IReadOnlyList<User>> GetAllAsync(CancellationToken ct = default)
          => Task.FromResult(_users);

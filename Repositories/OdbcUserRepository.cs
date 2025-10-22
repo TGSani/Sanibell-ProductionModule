@@ -7,9 +7,6 @@ namespace Sanibell_ProductionModule.Repositories;
 
 public sealed class OdbcUserRepository : IUsersRepository
 {
-   
-
-
     // connection string
     private readonly string _cs;
     public OdbcUserRepository(IConfiguration cfg)
@@ -17,7 +14,6 @@ public sealed class OdbcUserRepository : IUsersRepository
         _cs = cfg.GetConnectionString("DemoArt")
         ?? throw new InvalidOperationException("Connectionstring ontbreekt");
     }
-
     // open connection
     private async Task<OdbcConnection> OpenAsync(CancellationToken ct)
     {
@@ -33,7 +29,6 @@ public sealed class OdbcUserRepository : IUsersRepository
 
         return conn;
     }
-
     // get all users
     public async Task<IReadOnlyList<User>> GetAllAsync(CancellationToken ct = default)
     {
@@ -63,11 +58,10 @@ public sealed class OdbcUserRepository : IUsersRepository
         var rows = await conn.QueryAsync<User>(GetAllSql);
         return rows.AsList();
     }
-
     // get user by id
     public async Task<User?> GetByIdAsync(int id, CancellationToken ct = default)
     {
-            const string GetByIdSql = """
+        const string GetByIdSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
                     RelVoornaam AS Name,
@@ -89,6 +83,7 @@ public sealed class OdbcUserRepository : IUsersRepository
             AND VRCP_Productie IS NOT NULL
             AND VRCP_Productie <> 'NEE'
             """;
+        
         using var conn = await OpenAsync(ct);
         var user = await conn.QueryFirstOrDefaultAsync<User>(GetByIdSql, new { id });
         return user;

@@ -1,8 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const tableBody = document.getElementById('PlannerTableBody');
+    const form = document.getElementById('planningForm');
+    const loadingDiv = document.getElementById('loading');
+    const validationDiv = document.getElementById('validationErrors');
+    const tempMessages = document.querySelectorAll('.alert');
 
-    // Search functionality
+    // search filter
+
     searchInput.addEventListener('input', function () {
         const searchTerm = searchInput.value.toLowerCase();
         const rows = tableBody.getElementsByTagName('tr');
@@ -15,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Toggle all selections
+    // Toggle all selecties
     document.getElementById('toggleAll').addEventListener('click', function () {
         const checkboxes = document.querySelectorAll('.selection-item');
         const allChecked = Array.from(checkboxes).every(cb => cb.checked);
@@ -23,18 +28,41 @@ document.addEventListener('DOMContentLoaded', function() {
         this.textContent = !allChecked ? 'Deselecteer alles' : 'Selecteer alles';
     });
 
-    // show loading on form submit
-    document.getElementById('planningForm').addEventListener('submit', function() {
-        document.getElementById('loading').style.display = 'block';
+    // Form submit & loading / validation
+    form.addEventListener('submit', function(e) {
+        const selected = document.querySelectorAll('.selection-item:checked');
+
+        if (selected.length === 0) {
+            e.preventDefault();
+
+            if (validationDiv) {
+                validationDiv.textContent = "Selecteer minimaal één order om te verzenden.";
+                validationDiv.style.display = 'block';
+                validationDiv.style.opacity = '1';
+
+                setTimeout(() => {
+                    validationDiv.style.transition = 'opacity 1s ease-out';
+                    validationDiv.style.opacity = '0';
+                    setTimeout(() => validationDiv.style.display = 'none', 1000);
+                }, 5000);
+            }
+            return; 
+        }
+
+        if (loadingDiv) {
+            loadingDiv.style.display = 'block';
+            loadingDiv.style.opacity = '1';
+        }
     });
 
-    // Auto-hide messages after 5 seconds
-    const messages = document.querySelectorAll('.alert, .text-danger');
-    messages.forEach(msg => {
-        setTimeout(() => {
-            msg.style.transition = 'opacity 1s ease-out';
-            msg.style.opacity = '0';
-            setTimeout(() => msg.remove(), 1000);
-        }, 5000); 
+    // Fade-out voor TempData alerts
+    tempMessages.forEach(msg => {
+        if (msg.offsetParent !== null) { // alleen zichtbaar
+            setTimeout(() => {
+                msg.style.transition = 'opacity 1s ease-out';
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 1000);
+            }, 3000);
+        }
     });
 });

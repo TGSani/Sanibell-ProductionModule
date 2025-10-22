@@ -17,7 +17,6 @@ public class MockOrderDetailRepository : IOrderDetailRepository
             .Where(od => od.Id == id)
             .ToList()
             .AsReadOnly();
-
         return Task.FromResult(details);
     }
 }

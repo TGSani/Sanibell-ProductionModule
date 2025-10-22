@@ -25,8 +25,6 @@ namespace Sanibell_ProductionModule.Pages.User
             ViewData["ReturnUrl"] = Url.Page("/Dashboard");
 
             Orders = await _orders.GetOrdersAsync();
-
-
         }
     }
 

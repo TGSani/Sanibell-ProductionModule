@@ -27,7 +27,7 @@
             // optional ReturnUrl
             string? returnUrl = ViewData["ReturnUrl"] as string;
             if (string.IsNullOrWhiteSpace(returnUrl))
-            {   
+            {
                 // If no ReturnUrl, go back to Index
                 returnUrl = Url.Page("/Index");
             }

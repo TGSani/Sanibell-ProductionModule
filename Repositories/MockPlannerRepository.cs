@@ -18,8 +18,7 @@ public class MockPlannerRepository : IPlannerRepository
         new Planning { ArticleNumber = 14242, ArticleDescription = "Toiletrolhouder", Size = "Standaard", Color = "Chroom", TotalCurrentStockNL = 0, TotalCurrentStockPL = 9, Recommended7Days = 12, Recommended14Days = 20, Recommended30Days = 48, MaxPossibleProduction = 200, ReadyDate = DateTime.Today.AddDays(5).ToString("yyyy-MM-dd") },
         new Planning { ArticleNumber = 14243, ArticleDescription = "Douchestang", Size = "70cm", Color = "Zilver", TotalCurrentStockNL = 0, TotalCurrentStockPL = 3, Recommended7Days = 8, Recommended14Days = 14, Recommended30Days = 36, MaxPossibleProduction = 100, ReadyDate = DateTime.Today.AddDays(5).ToString("yyyy-MM-dd") },
     };
-
-
+    
     public Task<List<Planning>> GetPlanningAsync(CancellationToken ct = default)
     {
         return Task.FromResult(_plannings);

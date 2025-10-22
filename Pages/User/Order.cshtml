@@ -37,7 +37,7 @@
 
                 <tr onclick="location.href='@Url.Page("/User/OrderDetail", new { OrderId = order.Id })';">
                     <td class="number-align">@order.Id</td>
-                    <td >@order.RcptCode</td>
+                    <td>@order.RcptCode</td>
                     <td><span class="@statusClass">@order.Status</span></td>
                     <td>@order.Note</td>
                     <td class="number-align">@order.Amount</td>

@@ -24,8 +24,6 @@ namespace Sanibell_ProductionModule.Pages
         {
             _users = users;
         }
-
-
         // OnGet method to retrieve user by Id and display the login page
         public async Task<IActionResult> OnGetAsync()
         {
@@ -44,7 +42,6 @@ namespace Sanibell_ProductionModule.Pages
             }
 
             return Page();
-
         }
 
         // compare the scanned QR code with the QR code from the database
@@ -68,7 +65,6 @@ namespace Sanibell_ProductionModule.Pages
                 ModelState.AddModelError(string.Empty, "QR-code is ongeldig.");
                 return Page();
             }
-
             // Make claims
             var claims = new List<Claim>
             {

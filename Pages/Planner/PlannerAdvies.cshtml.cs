@@ -48,6 +48,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 Amount = p.Recommended7Days, // default value
             }).ToList();
         }
+        
         public async Task<IActionResult> OnPostAsync()
         {
             ViewData["ShowBackButton"] = true;
@@ -71,22 +72,13 @@ namespace Sanibell_ProductionModule.Pages.Planner
             foreach (var order in selectedOrders)
             {
                 try
-                {
+                {   
                     var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
-
-                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
-
                     var gebruiker = User.Identity?.Name ?? "Onbekend";
-                    await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker);
-
-                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
-
                     var Urgency = order.Urgency;
+                    await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker); 
                     await _erpService.ProductionOrderUrgencyAsync(productieorderNummer, Urgency);
-
-                    // await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
-                    // unlock mogelijk alleen nodig aan het einde, test op locatie
-
+                    await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
                     successCount++;
                 }
                 catch (HttpRequestException ex)
@@ -94,7 +86,6 @@ namespace Sanibell_ProductionModule.Pages.Planner
                     failedOrders.Add(order.ArticleNumber.ToString());
                     Console.WriteLine($"ERP fout bij order {order.ArticleNumber}: {ex.Message}");
                 }
-
             }
 
             if (failedOrders.Any())
@@ -111,7 +102,6 @@ namespace Sanibell_ProductionModule.Pages.Planner
             }
 
             return RedirectToPage();
-
         }
     }
 

@@ -26,7 +26,6 @@
   border: solid 2px black;
 }
 
-
 /* Table styling */
 .data-container {
   flex: 1 1 auto;
@@ -65,7 +64,6 @@
 .data-container tbody tr:nth-child(odd) {
   background-color: #F9F9F9;
 }
-
 
 /* Table data cells */
 .data-container td {
@@ -115,14 +113,12 @@ button {
   list-style-type: none;
 }
 
-.text-danger {
-  color: #721c24;
-  padding: 10px;
-}
-
 .form-buttons {
+  display: flex;
+  justify-content:right;
+  align-items: center;
+  flex-direction: row;
   margin-top: auto;
-  text-align: right;
   padding: 10px 10%;
 }
 
@@ -141,5 +137,4 @@ button {
   background-color: #f8d7da;
   color: #721c24;
   padding: 10px;
-
 }
