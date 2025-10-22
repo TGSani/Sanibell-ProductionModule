@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const tableBody = document.getElementById('PlannerTableBody');
 
+    // Search functionality
     searchInput.addEventListener('input', function () {
         const searchTerm = searchInput.value.toLowerCase();
         const rows = tableBody.getElementsByTagName('tr');
@@ -27,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('loading').style.display = 'block';
     });
 
-    // Auto-hide messages after 3 seconds
+    // Auto-hide messages after 5 seconds
     const messages = document.querySelectorAll('.alert, .text-danger');
     messages.forEach(msg => {
         setTimeout(() => {
             msg.style.transition = 'opacity 1s ease-out';
             msg.style.opacity = '0';
             setTimeout(() => msg.remove(), 1000);
-        }, 3000); 
+        }, 5000); 
     });
 });
