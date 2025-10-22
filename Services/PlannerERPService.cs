@@ -34,7 +34,7 @@ namespace Sanibell_ProductionModule.Services
                 Status = "INGEPLAND",
                 DefaultMagazijnComponenten = 1,
                 DefaultMagazijnEindproduct = 1,
-                TeProducerenVoor = planning.ReadyDate
+                TeProducerenVoor = planning.ReadyDate.ToString("yyyy-MM-dd")
             };
 
             var json = JsonSerializer.Serialize(payload);
