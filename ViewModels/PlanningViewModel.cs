@@ -13,9 +13,9 @@ public class PlanningViewModel
     public int Recommended14Days { get; set; }
     public int Recommended30Days { get; set; }
     public int MaxPossibleProduction { get; set; }
-    public string? ReadyDate { get; set; }
 
     // editable fields
+    public DateTime ReadyDate { get; set; }
     public int Amount { get; set; }
     public bool Urgency { get; set; }
     public bool Selection { get; set; }

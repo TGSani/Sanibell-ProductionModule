@@ -44,11 +44,28 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 Recommended14Days = p.Recommended14Days,
                 Recommended30Days = p.Recommended30Days,
                 MaxPossibleProduction = p.MaxPossibleProduction,
-                ReadyDate = p.ReadyDate,
+                ReadyDate = BerekenDeadline(DateTime.Today), //default value
                 Amount = p.Recommended7Days, // default value
             }).ToList();
         }
-        
+
+        private DateTime BerekenDeadline(DateTime startDatum)
+        {
+            DayOfWeek dag = startDatum.DayOfWeek;
+            int dagenTotVrijdag;
+
+            if (dag >= DayOfWeek.Monday && dag <= DayOfWeek.Wednesday)
+            {
+                dagenTotVrijdag = DayOfWeek.Friday - dag; // komende vrijdag
+            }
+            else
+            {
+                dagenTotVrijdag = 7 + (DayOfWeek.Friday - dag); // vrijdag volgende week
+            }
+
+            return startDatum.AddDays(dagenTotVrijdag);
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             ViewData["ShowBackButton"] = true;
