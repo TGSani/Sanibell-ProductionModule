@@ -43,7 +43,7 @@
 
 /* Table header */
 .data-container thead {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 .data-container thead th {
@@ -57,12 +57,12 @@
 
 /* Table rows */
 .data-container tbody tr {
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 /* Zebra striping */
 .data-container tbody tr:nth-child(odd) {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 
 /* Table data cells */
@@ -89,7 +89,7 @@
 button {
   margin: 10px 5px;
   padding: 10px 20px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   color: black;
   border: none;
   border-radius: 5px;
@@ -115,7 +115,7 @@ button {
 
 .form-buttons {
   display: flex;
-  justify-content:right;
+  justify-content: right;
   align-items: center;
   flex-direction: row;
   margin-top: auto;
@@ -123,7 +123,7 @@ button {
 }
 
 /* Alert styles */
-.alert-info{
+.alert-info {
   background-color: #d1ecf1;
   color: #0c5460;
   padding: 10px;

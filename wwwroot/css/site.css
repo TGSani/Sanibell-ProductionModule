@@ -24,7 +24,7 @@ header {
   align-items: center;
   justify-content: space-between;
   height: 100px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-bottom: solid 1px #000;
   padding: 0 25px;
 }
@@ -71,7 +71,7 @@ header {
 .header-buttons {
   width: 50px;
   height: 50px;
-  padding: 0; 
+  padding: 0;
   border-radius: 10px;
   border: solid 2px #000;
   background-color: transparent;
@@ -110,7 +110,7 @@ header {
   white-space: nowrap;
   line-height: 20px;
   padding-left: 15px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 /* Responsive header */
@@ -138,29 +138,29 @@ header {
 
 /* Fonts */
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/Poppins-Italic.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/Poppins-Light.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
