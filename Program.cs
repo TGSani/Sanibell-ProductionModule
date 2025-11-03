@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 
 // DI for user service
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
+builder.Services.AddScoped<IUsersRepository, OdbcUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
 builder.Services.AddScoped<MenuTileService>();
 builder.Services.AddScoped<PlannerErpService>();
 builder.Services.AddScoped<IOrderRepository, OdbcOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here

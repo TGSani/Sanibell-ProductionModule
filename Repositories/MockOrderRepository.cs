@@ -8,7 +8,7 @@ public class MockOrderRepository : IOrderRepository
 {
     private static readonly IReadOnlyList<Order> _orders =
         [
-        new Order { Id = 1, RcptCode = "PC0001", Status = "In productie", Note = "naam en/of omschrijving eindproduct", Amount = 40, CreatedBy = "Frank", Urgency=false, ProduceBefore = new DateTime(2025,10,22).Date },
+        new Order { Id = 1, RcptCode = "9902400", Status = "In productie", Note = "naam en/of omschrijving eindproduct", Amount = 40, CreatedBy = "Frank", Urgency=false, ProduceBefore = new DateTime(2025,10,22).Date },
         new Order { Id = 2, RcptCode = "PC0003", Status = "Gereserveerd", Note = "naam en/of omschrijving eindproduct", Amount = 100, CreatedBy = "Marie-Louise", Urgency=true, ProduceBefore = new DateTime(2025,10,22).Date },
         new Order { Id = 3, RcptCode = "COMBITOETSB + MUIS", Status = "In productie", Note = "naam en/of omschrijving eindproduct", Amount = 20, CreatedBy = "Frank", Urgency=false, ProduceBefore = new DateTime(2025,10,22).Date },
         new Order { Id = 4, RcptCode = "53B2-3", Status = "Gereserveerd", Note = "naam en/of omschrijving eindproduct", Amount = 10, CreatedBy = "Marie-Louise", Urgency=false, ProduceBefore = new DateTime(2025,10,22).Date },

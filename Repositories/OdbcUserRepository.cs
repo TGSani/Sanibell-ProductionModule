@@ -35,7 +35,7 @@ public sealed class OdbcUserRepository : IUsersRepository
          const string GetAllSql = """
             SELECT  VRCP_Productie AS Role,
                     RelNummer AS Id,
-                    RelVoornaam AS Name,
+                    RelVolledigeNaam AS Name,
                     VRCP_WMS_Inlog AS QRcode
 
             From        KingSystem.tabRelatie 
