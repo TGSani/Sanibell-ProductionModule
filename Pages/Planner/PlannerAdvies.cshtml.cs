@@ -42,7 +42,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
                 TotalCurrentStockPL = p.TotalCurrentStockPL,
                 Recommended7Days = p.Recommended7Days,
                 Recommended14Days = p.Recommended14Days,
-                Recommended30Days = p.Recommended30Days,
+                Recommended21Days = p.Recommended21Days,
                 MaxPossibleProduction = p.MaxPossibleProduction,
                 ReadyDate = BerekenDeadline(DateTime.Today), //default value
                 Amount = p.Recommended7Days, // default value
