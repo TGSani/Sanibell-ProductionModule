@@ -8,46 +8,52 @@
 @section PageStyle {
     <link rel="stylesheet" href="~/css/userOrderDetail.css" />
 }
-
-<div class="content-wrapper">
-    @foreach(var order in Model.OrderDetails)
-    {
-       <table class="data-container">
-        <thead>
-            <tr>
-                <th>Order nummer</th>
-                <th>Recept Code</th>
-                <th>Omschrijving</th>
-                <th>aantal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="number-align">@order.OrderNummer</td>
-                <td>@order.ReceptCode</td>
-                <td>@order.Omschrijving</td>
-                <td class="number-align">@order.Aantal</td>
-            </tr>
-        </tbody>
-    </table>  
-    <table class="data-container">
-            <thead>
-                <tr>
-                    <th>Components</th>
-                    <th>aantal</th>
-                    <th>locatie code</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in order.Components)
-                {
+<div class="body">
+    <div class="content-wrapper">
+        @foreach (var order in Model.OrderDetails)
+        {
+            <table class="data-container">
+                <thead>
                     <tr>
-                        <td>@item.Naam</td>
-                        <td>@item.Aantal</td>
-                        <td>@item.LocatieCode</td>
+                        <th>Order nummer</th>
+                        <th>Recept Code</th>
+                        <th>Omschrijving</th>
+                        <th>aantal</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="number-align">@order.OrderNummer</td>
+                        <td>@order.ReceptCode</td>
+                        <td>@order.Omschrijving</td>
+                        <td class="number-align">@order.Aantal</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="data-container">
+                <thead>
+                    <tr>
+                        <th>Components</th>
+                        <th>aantal</th>
+                        <th>locatie code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in order.Components)
+                    {
+                        <tr>
+                            <td>@item.Naam</td>
+                            <td>@item.Aantal</td>
+                            <td>@item.LocatieCode</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <div class="content-wrapper">
+        <button>test</button>
+        <button>test2</button>
+        <button>test3</button>
+    </div>
 </div>

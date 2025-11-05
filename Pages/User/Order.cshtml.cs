@@ -27,5 +27,4 @@ namespace Sanibell_ProductionModule.Pages.User
             Orders = await _orders.GetOrdersAsync();
         }
     }
-
 }

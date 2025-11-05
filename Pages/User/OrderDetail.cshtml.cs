@@ -19,7 +19,7 @@ public class OrderDetailModel : PageModel
     [BindProperty(SupportsGet = true)]
     public int OrderId { get; set; }
 
-    public required IReadOnlyList<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+    public IReadOnlyList<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public async Task OnGetAsync()
     {
