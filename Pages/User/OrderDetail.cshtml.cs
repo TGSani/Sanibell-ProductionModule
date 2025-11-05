@@ -10,18 +10,16 @@ namespace Sanibell_ProductionModule.Pages.User;
 public class OrderDetailModel : PageModel
 {
     private readonly IOrderDetailRepository _detailRepo;
-    private readonly IOrderRepository _orderRepo;
-    public OrderDetailModel(IOrderDetailRepository detailRepo, IOrderRepository orderRepo)
+
+    public OrderDetailModel(IOrderDetailRepository detailRepo)
     {
         _detailRepo = detailRepo;
-        _orderRepo = orderRepo;
     }
 
     [BindProperty(SupportsGet = true)]
     public int OrderId { get; set; }
 
-    public Order? Order { get; set; }
-    public required IReadOnlyList<OrderDetail> Details { get; set; }
+    public required IReadOnlyList<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public async Task OnGetAsync()
     {
@@ -31,8 +29,7 @@ public class OrderDetailModel : PageModel
 
         if (OrderId > 0)
         {
-            Order = await _orderRepo.GetByIdAsync(OrderId);
-            Details = await _detailRepo.GetDetailByIdAsync(OrderId);
+            OrderDetails = await _detailRepo.GetDetailByIdAsync(OrderId);
         }
     }
 }

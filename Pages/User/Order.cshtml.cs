@@ -16,7 +16,7 @@ namespace Sanibell_ProductionModule.Pages.User
             _orders = orders;
         }
 
-        public IReadOnlyList<Order>? Orders { get; private set; }
+        public IReadOnlyList<Order> Orders { get; private set; } = new List<Order>();
         public async Task OnGetAsync()
         {
             // Zet de ViewData flags voor het weergeven van de knoppen in de layout

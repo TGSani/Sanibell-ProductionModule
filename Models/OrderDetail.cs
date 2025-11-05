@@ -1,9 +1,17 @@
 namespace Sanibell_ProductionModule.Models;
 
-public sealed class OrderDetail
+public class OrderDetail
 {
-    public required int Id { get; set; }
-    public required string Component { get; set; }
-    public required int Aantal { get; set; }
-    public required string Locatie { get; set; }
+    public int OrderNummer { get; set; }
+    public string ReceptCode { get; set; } = string.Empty;
+    public string Omschrijving { get; set; } = string.Empty;
+    public int Aantal { get; set; }
+    public List<Component> Components { get; set; } = new();
+}
+
+public class Component
+{
+    public string Naam { get; set; } = string.Empty;
+    public int Aantal { get; set; }
+    public string LocatieCode { get; set; } = string.Empty;
 }

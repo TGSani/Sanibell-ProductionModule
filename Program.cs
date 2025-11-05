@@ -9,12 +9,12 @@ builder.Services.AddRazorPages();
 
 // DI for service
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IUsersRepository, OdbcUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
+builder.Services.AddScoped<IUsersRepository, MockUserRepository>(); //  switch between "MockUserRepository" and "OdbcUserRepository" here
 builder.Services.AddScoped<MenuTileService>();
 builder.Services.AddScoped<PlannerErpService>();
-builder.Services.AddScoped<IOrderRepository, OdbcOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
+builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 builder.Services.AddScoped<IOrderDetailRepository, MockOrderDetailRepository>(); // switch between "MockOrderDetailRepository" and "OdbcOrderDetailRepository" here
-builder.Services.AddScoped<IPlannerRepository, OdbcPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
+builder.Services.AddScoped<IPlannerRepository, MockPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
 
 // policy based authorization
 builder.Services.AddAuthorization(options =>
