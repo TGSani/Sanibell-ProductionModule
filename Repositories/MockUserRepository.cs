@@ -26,9 +26,9 @@ public class MockUserRepository : IUsersRepository
          => Task.FromResult(_users);
 
     // get user by id
-    public Task<User?> GetByIdAsync(int id, CancellationToken ct = default)
+    public Task<User> GetByIdAsync(int id, CancellationToken ct = default)
     {
         var user = _users.FirstOrDefault(u => u.Id == id);
-        return Task.FromResult(user);
+        return Task.FromResult(user!);
     }
 }

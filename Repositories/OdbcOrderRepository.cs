@@ -62,7 +62,7 @@ public class OdbcOrderRepository : IOrderRepository
         return rows.AsList();
     }
 
-    public async Task<Order?> GetByIdAsync(int id, CancellationToken ct = default)
+    public async Task<Order> GetByIdAsync(int id, CancellationToken ct = default)
     {
         const string GetByIdSql = """
         SELECT   
@@ -99,6 +99,6 @@ public class OdbcOrderRepository : IOrderRepository
 
         using var conn = await OpenAsync(ct);
         var order = await conn.QuerySingleOrDefaultAsync<Order>(GetByIdSql, new { id });
-        return order;
+        return order!;
     }
 }

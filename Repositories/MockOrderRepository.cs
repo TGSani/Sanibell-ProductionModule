@@ -23,10 +23,9 @@ public class MockOrderRepository : IOrderRepository
     public Task<IReadOnlyList<Order>> GetOrdersAsync(CancellationToken ct = default)
          => Task.FromResult(_orders);
 
-    public Task<Order?> GetByIdAsync(int id, CancellationToken ct = default)
+    public Task<Order> GetByIdAsync(int id, CancellationToken ct = default)
     {
         var order = _orders.FirstOrDefault(o => o.Id == id);
-        return Task.FromResult(order);
+        return Task.FromResult(order!);
     }
-
 }

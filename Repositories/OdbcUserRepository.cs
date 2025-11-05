@@ -59,7 +59,7 @@ public sealed class OdbcUserRepository : IUsersRepository
         return rows.AsList();
     }
     // get user by id
-    public async Task<User?> GetByIdAsync(int id, CancellationToken ct = default)
+    public async Task<User> GetByIdAsync(int id, CancellationToken ct = default)
     {
         const string GetByIdSql = """
             SELECT  VRCP_Productie AS Role,
@@ -86,6 +86,6 @@ public sealed class OdbcUserRepository : IUsersRepository
         
         using var conn = await OpenAsync(ct);
         var user = await conn.QueryFirstOrDefaultAsync<User>(GetByIdSql, new { id });
-        return user;
+        return user!;
     }
 }
