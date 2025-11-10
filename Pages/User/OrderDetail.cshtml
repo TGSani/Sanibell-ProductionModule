@@ -27,9 +27,18 @@
                         <td>@order.ReceptCode</td>
                         <td>@order.Omschrijving</td>
                         <td class="number-align">@order.Aantal</td>
+
                     </tr>
                 </tbody>
             </table>
+            <div>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <p>@order.Omschrijving</p>
+                        <p>@order.OrderNummer</p>
+                        <img src="data:image/png;base64,@item.BarcodeBase64" />
+                    }
+            </div>
             <table class="data-container">
                 <thead>
                     <tr>

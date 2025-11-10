@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NetBarcode" Version="1.8.3" />
     <PackageReference Include="System.Data.Odbc" Version="9.0.9" />
-    <PackageReference Include="Dapper" Version = "2.1.35" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
   </ItemGroup>
 
 </Project>

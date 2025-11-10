@@ -4,7 +4,7 @@ using System.Security.Claims;
 namespace Sanibell_ProductionModule.Services;
 
 // service to get menu tiles based on user roles
-public sealed class MenuTileService 
+public class MenuTileService 
 {
     // all tiles
     private static readonly MenuTile[] All =

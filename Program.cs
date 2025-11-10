@@ -15,6 +15,8 @@ builder.Services.AddScoped<PlannerErpService>();
 builder.Services.AddScoped<IOrderRepository, MockOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 builder.Services.AddScoped<IOrderDetailRepository, MockOrderDetailRepository>(); // switch between "MockOrderDetailRepository" and "OdbcOrderDetailRepository" here
 builder.Services.AddScoped<IPlannerRepository, MockPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
+builder.Services.AddScoped<IBarCodeGenService, BarCodeGenService>();
+
 
 // policy based authorization
 builder.Services.AddAuthorization(options =>

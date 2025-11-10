@@ -12,6 +12,7 @@ public class MockOrderDetailRepository : IOrderDetailRepository
             ReceptCode = "RCP1001",
             Omschrijving = "Product A",
             Aantal = 20,
+            EANCode = 8718835105419,
             Components = new List<Component>
             {
                 new Component {Naam = "Component X", Aantal = 20, LocatieCode = "LB-01"},
@@ -24,6 +25,7 @@ public class MockOrderDetailRepository : IOrderDetailRepository
             ReceptCode = "RCP1002",
             Omschrijving = "Product B",
             Aantal = 50,
+            EANCode = 8718835105419,
             Components = new List<Component>
             {
                 new Component { Naam = "Component Z", Aantal = 100, LocatieCode = "L003" }
@@ -35,6 +37,7 @@ public class MockOrderDetailRepository : IOrderDetailRepository
             ReceptCode = "RCP1003",
             Omschrijving = "Product C",
             Aantal = 12,
+            EANCode = 8718835105419,
             Components = new List<Component>
             {
                 new Component { Naam = "Component W", Aantal = 24, LocatieCode = "L004" },
@@ -48,6 +51,7 @@ public class MockOrderDetailRepository : IOrderDetailRepository
             ReceptCode = "RCP1004",
             Omschrijving = "Product D",
             Aantal = 20,
+            EANCode = 8718835105417,
             Components = new List<Component>
             {
                 new Component { Naam = "Component Y", Aantal = 23, LocatieCode = "L005"},

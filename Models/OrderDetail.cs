@@ -6,6 +6,8 @@ public class OrderDetail
     public string ReceptCode { get; set; } = string.Empty;
     public string Omschrijving { get; set; } = string.Empty;
     public int Aantal { get; set; }
+    public long EANCode { get; set; }
+    public string BarcodeBase64 { get; set; } = string.Empty;
     public List<Component> Components { get; set; } = new();
 }
 
