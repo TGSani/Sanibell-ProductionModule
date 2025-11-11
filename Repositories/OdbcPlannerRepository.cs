@@ -26,76 +26,75 @@ public class OdbcPlannerRepository : IPlannerRepository
 
     public async Task<List<Planning>> GetPlanningAsync(CancellationToken ct = default)
     {
-        const string GetAllSql = """
-                select     
-                RcptOmschrijving    As ArticleDescription
-                ,E.ArtCode           As ArticleNumber
-                ,VRART_Maat          As Size
-                ,VRART_Kleur         As Color
+        // const string GetAllSql = """
+        //         select     
+        //         RcptOmschrijving    As ArticleDescription
+        //         ,E.ArtCode           As ArticleNumber
+        //         ,VRART_Maat          As Size
+        //         ,VRART_Kleur         As Color
 
-                ,Cast(isnull((Select  sum(ArtLocVoorraad)
-                                    from 	KingSystem.tabArtikelLocatie
-                                            inner join KingSystem.tabLocatie on LocGid = ArtLocLocGid
-                                            inner join KingSystem.tabMagazijn on LocMagGid = MagGid
-                                    Where 	MagCode in(1,2,9)
-                                            and ArtLocArtGid = E.ArtGid
-                                            and locnaam <> 'Retour voorraad' 
-                            ),0)
-                                As Decimal(5,0)) 								AS TotalCurrentStockNL
+        //         ,Cast(isnull((Select  sum(ArtLocVoorraad)
+        //                             from 	KingSystem.tabArtikelLocatie
+        //                                     inner join KingSystem.tabLocatie on LocGid = ArtLocLocGid
+        //                                     inner join KingSystem.tabMagazijn on LocMagGid = MagGid
+        //                             Where 	MagCode in(1,2,9)
+        //                                     and ArtLocArtGid = E.ArtGid
+        //                                     and locnaam <> 'Retour voorraad' 
+        //                     ),0)
+        //                         As Decimal(5,0)) 								AS TotalCurrentStockNL
 
-                    ,Cast(isnull((Select sum(ArtLocVoorraad)
-                            from 	KingSystem.tabArtikelLocatie
-                                    inner join KingSystem.tabLocatie on LocGid = ArtLocLocGid
-                                        inner join KingSystem.tabMagazijn on LocMagGid = MagGid
-                                Where 	MagCode in(5,8)
-                                    and ArtLocArtGid = ArtGid
-                                    and locnaam <> 'Retour voorraad' 
-                            ),0) 			
-                                As Decimal(5,0))								AS TotalCurrentStockPL
+        //             ,Cast(isnull((Select sum(ArtLocVoorraad)
+        //                     from 	KingSystem.tabArtikelLocatie
+        //                             inner join KingSystem.tabLocatie on LocGid = ArtLocLocGid
+        //                                 inner join KingSystem.tabMagazijn on LocMagGid = MagGid
+        //                         Where 	MagCode in(5,8)
+        //                             and ArtLocArtGid = ArtGid
+        //                             and locnaam <> 'Retour voorraad' 
+        //                     ),0) 			
+        //                         As Decimal(5,0))								AS TotalCurrentStockPL
 
-                ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
-                    From   KingSystem.tabOrderRegel
-                        Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
-                    Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
-                        And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+7)
-                        And OrrArtGid = E.ArtGid             
-                    ),0)                                As Recommended7Days
+        //         ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
+        //             From   KingSystem.tabOrderRegel
+        //                 Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
+        //             Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
+        //                 And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+7)
+        //                 And OrrArtGid = E.ArtGid             
+        //             ),0)                                As Recommended7Days
 
-                ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
-                    From   KingSystem.tabOrderRegel
-                        Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
-                    Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
-                        And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+14)
-                        And OrrArtGid = E.ArtGid             
-                    ),0)                                As Recommended14Days
+        //         ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
+        //             From   KingSystem.tabOrderRegel
+        //                 Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
+        //             Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
+        //                 And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+14)
+        //                 And OrrArtGid = E.ArtGid             
+        //             ),0)                                As Recommended14Days
 
-                ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
-                    From   KingSystem.tabOrderRegel
-                        Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
-                    Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
-                        And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+21)
-                        And OrrArtGid = E.ArtGid             
-                    ),0)                                As Recommended21Days
+        //         ,Isnull((Select sum(OrrAantalBesteld - OrrAantalGeleverd) 
+        //             From   KingSystem.tabOrderRegel
+        //                 Inner join KingSystem.tabOrderKop on OrrOrkGid = OrkGid
+        //             Where  OrkGoedgekeurd = 1 --Alleen goedgekeurde orders
+        //                 And isnull(OrrLeverDatum,OrkLeverdatum) <= (getdate()+21)
+        //                 And OrrArtGid = E.ArtGid             
+        //             ),0)                                As Recommended21Days
 
 
-        From       KingSystem.tabReceptuur
-                Inner join KingSystem.tabReceptuurEindproduct ON RcpeRcptGid = RcptGid
-                Inner join KingSystem.tabArtikel E on E.Artgid = RcpeArtGid
-                left join KingSystem.vrGetContent('ART',0,0,
-                                                    'Maat
-                                                    Kleur'
-                                                    ,'','')
-                                                WITH(VRART_Gid integer
-                                                    ,VRART_Maat nchar(40)
-                                                    ,VRART_Kleur nchar(40)
-                                                    ) on VRART_gid = E.ArtGid
+        // From       KingSystem.tabReceptuur
+        //         Inner join KingSystem.tabReceptuurEindproduct ON RcpeRcptGid = RcptGid
+        //         Inner join KingSystem.tabArtikel E on E.Artgid = RcpeArtGid
+        //         left join KingSystem.vrGetContent('ART',0,0,
+        //                                             'Maat
+        //                                             Kleur'
+        //                                             ,'','')
+        //                                         WITH(VRART_Gid integer
+        //                                             ,VRART_Maat nchar(40)
+        //                                             ,VRART_Kleur nchar(40)
+        //                                             ) on VRART_gid = E.ArtGid
 
-        Where      Isnull(RcptGeblokkeerd,0) = 0
-                    AND  Recommended14Days > 1
-        """;
+        // Where      Isnull(RcptGeblokkeerd,0) = 0
+        //             AND  Recommended14Days > 1
+        // """;
 
-        // New version of the SQL for better readability and performance (TO-DO: need to test it monday)
-        #pragma warning disable CS0219 // Variable is assigned but its value is never used 
+        // New version of the SQL for better readability and performance 
         const string GetAllSqlNew = """
         WITH Stock AS (
             SELECT
@@ -160,7 +159,8 @@ public class OdbcPlannerRepository : IPlannerRepository
                     'ART',
                     0,
                     0,
-                    'Maat Kleur',
+                    'Maat
+                    Kleur',
                     '',
                     ''
                 )
@@ -176,10 +176,11 @@ public class OdbcPlannerRepository : IPlannerRepository
             ON R.ArtGid = ART.ArtGid
         WHERE ISNULL(RCP.RcptGeblokkeerd, 0) = 0
         AND ISNULL(R.Recommended14Days, 0) > 1
+        AND TotalCurrentStockNL < 30
+        AND TotalCurrentStockPL < 30
         """;
-        #pragma warning restore CS0219 // Variable is assigned but its value is never used
         using var conn = await OpenAsync(ct);
-        var rows = await conn.QueryAsync<Planning>(GetAllSql);
+        var rows = await conn.QueryAsync<Planning>(GetAllSqlNew);
         return rows.ToList();
     }
 }
