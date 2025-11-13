@@ -31,7 +31,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div>
+            <div class="hidden">
                     @foreach (var item in Model.OrderDetails)
                     {
                         <p>@order.Omschrijving</p>
@@ -60,9 +60,9 @@
             </table>
         }
     </div>
-    <div class="content-wrapper">
-        <button class="shadowbox">test</button>
-        <button class="shadowbox">test2</button>
-        <button class="shadowbox">test3</button>
+    <div class="btn-group">
+        <button class="shadowbox">Start Order</button>
+        <button class="shadowbox">Print Etiket</button>
+        <button class="shadowbox">Afronden Order</button>
     </div>
 </div>

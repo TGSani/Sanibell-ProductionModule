@@ -26,7 +26,6 @@ a {
   display: flex;
   flex-direction: row;
   align-items: start;
-  justify-content: space-around;
 }
 
 /* Table styling */
@@ -95,4 +94,15 @@ button {
 
 .shadowbox:active {
   background-color: #807e7e;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
