@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
 using Sanibell_ProductionModule.Services;
+using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.ViewModels;
 
 
@@ -13,8 +14,8 @@ namespace Sanibell_ProductionModule.Pages.Planner
     public class PlannerAdviesModel : PageModel
     {
         private readonly IPlannerRepository _planner;
-        private readonly PlannerErpService _erpService;
-        public PlannerAdviesModel(IPlannerRepository planner, PlannerErpService erpService)
+        private readonly IPlannerErpService _erpService;
+        public PlannerAdviesModel(IPlannerRepository planner, IPlannerErpService erpService)
         {
             _planner = planner;
             _erpService = erpService;
