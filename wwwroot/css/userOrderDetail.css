@@ -84,3 +84,15 @@ button {
   cursor: pointer;
   font-size: 14px;
 }
+
+.shadowbox {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shadowbox:hover {
+  box-shadow: none;
+}
+
+.shadowbox:active {
+  background-color: #807e7e;
+}
