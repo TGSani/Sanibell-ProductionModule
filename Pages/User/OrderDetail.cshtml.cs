@@ -4,6 +4,7 @@ using Sanibell_ProductionModule.Repositories.Interfaces;
 using Sanibell_ProductionModule.Models;
 using Sanibell_ProductionModule.Services;
 using Microsoft.AspNetCore.Mvc;
+using Sanibell_ProductionModule.Services.Interfaces;
 
 
 
@@ -14,11 +15,14 @@ public class OrderDetailModel : PageModel
 {
     private readonly IOrderDetailRepository _detailRepo;
     private readonly IBarCodeGenService _barcodeService;
+    private readonly IPlannerErpService _erpService;
 
-    public OrderDetailModel(IOrderDetailRepository detailRepo, IBarCodeGenService barcodeService)
+
+    public OrderDetailModel(IOrderDetailRepository detailRepo, IBarCodeGenService barcodeService, IPlannerErpService erpService)
     {
         _detailRepo = detailRepo;
         _barcodeService = barcodeService;
+        _erpService = erpService;
     }
 
     [BindProperty(SupportsGet = true)]
@@ -49,5 +53,18 @@ public class OrderDetailModel : PageModel
 
             }).ToList().AsReadOnly();
         }
+    }
+
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        ViewData["ShowBackButton"] = true;
+        ViewData["ShowLogoutButton"] = false;
+
+        
+        await _erpService.ProductionOrderVerwerkenAsync(OrderId.ToString());
+        await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
+
+        return RedirectToPage();
     }
 }

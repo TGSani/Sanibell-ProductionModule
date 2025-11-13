@@ -2,11 +2,12 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.ViewModels;
 
 namespace Sanibell_ProductionModule.Services
 {
-    public class PlannerErpService
+    public class PlannerErpService : IPlannerErpService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _config;
