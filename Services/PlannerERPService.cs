@@ -218,5 +218,40 @@ namespace Sanibell_ProductionModule.Services
             if (!response.IsSuccessStatusCode)
                 throw new HttpRequestException($"Fout bij verwerken order: {response.StatusCode} - {responseBody}");
         }
+
+        // changing status to active ("ONDERHANDEN") in the ERP system
+        public async Task ProductionOrderActiveStatusAsync(string productieorderNummer)
+        {
+            var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
+            var token = _config["PlannerERPSettings:Status_Active_Order_Secret"];
+            var relativePath = "Productieorder_Wijzigen";
+
+            var url = new Uri(new Uri(baseUrl + "/"), relativePath);
+
+            var payload = new
+            {
+                ProductieorderNummer = productieorderNummer,
+                Status = "ONDERHANDEN"
+            };
+
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content
+            }
+            ;
+            request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
+
+            var response = await client.SendAsync(request);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Wijzig Order response: {response.StatusCode} - {responseBody}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException($"Fout bij verwerken order: {response.StatusCode} - {responseBody}");
+        }
     }
 }

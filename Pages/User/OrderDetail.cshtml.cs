@@ -56,7 +56,18 @@ public class OrderDetailModel : PageModel
     }
 
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostStartOrderAsync()
+    {
+        ViewData["ShowBackButton"] = true;
+        ViewData["ShowLogoutButton"] = false;
+
+        await _erpService.ProductionOrderActiveStatusAsync(OrderId.ToString());
+        await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
+
+        return RedirectToPage();
+    }
+
+    public async Task<IActionResult> OnPostCompleteOrderAsync()
     {
         ViewData["ShowBackButton"] = true;
         ViewData["ShowLogoutButton"] = false;

@@ -9,4 +9,5 @@ public interface IPlannerErpService
     Task ProductionOrderCreatedByAsync(string productieorderNummer, string gebruiker);
     Task ProductionOrderUrgencyAsync(string productieorderNummer, bool Urgency);
     Task ProductionOrderVerwerkenAsync(string productieorderNummer);
+    Task ProductionOrderActiveStatusAsync(string productieorderNummer);
 }

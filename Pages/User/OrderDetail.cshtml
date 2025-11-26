@@ -61,9 +61,13 @@
         }
     </div>
     <div class="btn-group">
-        <button class="shadowbox">Start Order</button>
+        <form method = "post" id = "activeStatusOrder">
+            <button class="shadowbox" type="submit" form="activeStatusOrder" formaction="?handler=StartOrder">Start Order</button>
+        </form>
         <button class="shadowbox">Print Etiket</button>
-        <form method="post" id="processOrder"></form>
-        <button class="shadowbox"  type="submit" form="processOrder">Afronden Order</button>
+        <form method="post" id="processOrder">
+            <button class="shadowbox"  type="submit" form="processOrder" formaction="?handler=CompleteOrder">Afronden Order</button>
+        </form>
+        
     </div>
 </div>
