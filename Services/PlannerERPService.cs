@@ -174,6 +174,7 @@ namespace Sanibell_ProductionModule.Services
             };
             request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
 
+
             var response = await client.SendAsync(request);
             var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -196,12 +197,12 @@ namespace Sanibell_ProductionModule.Services
             {
                 ProductieorderNummer = productieorderNummer,
                 ComponentenAfboeken = "JA",
-                EindproductOpboeken = "JA"
+                EindproductenOpboeken = "JA"
             };
 
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            
+
             var client = _httpClientFactory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, url)
             {
@@ -244,6 +245,12 @@ namespace Sanibell_ProductionModule.Services
             }
             ;
             request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
+
+            var requestBody = await content.ReadAsStringAsync();
+            Console.WriteLine($"Request URL: {url}");
+            Console.WriteLine($"Request Body: {requestBody}");
+            Console.WriteLine($"ACCESS-TOKEN: {token}");
+
 
             var response = await client.SendAsync(request);
             var responseBody = await response.Content.ReadAsStringAsync();

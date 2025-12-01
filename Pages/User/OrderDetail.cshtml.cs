@@ -64,7 +64,7 @@ public class OrderDetailModel : PageModel
         await _erpService.ProductionOrderActiveStatusAsync(OrderId.ToString());
         await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
 
-        return RedirectToPage();
+        return RedirectToPage(new { this.OrderId });
     }
 
     public async Task<IActionResult> OnPostCompleteOrderAsync()
@@ -76,6 +76,6 @@ public class OrderDetailModel : PageModel
         await _erpService.ProductionOrderVerwerkenAsync(OrderId.ToString());
         await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
 
-        return RedirectToPage();
+        return RedirectToPage(new { this.OrderId });
     }
 }

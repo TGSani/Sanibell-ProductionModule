@@ -62,10 +62,12 @@
     </div>
     <div class="btn-group">
         <form method = "post" id = "activeStatusOrder">
+            <input type="hidden" asp-for="OrderId" />
             <button class="shadowbox" type="submit" form="activeStatusOrder" formaction="?handler=StartOrder">Start Order</button>
         </form>
         <button class="shadowbox">Print Etiket</button>
         <form method="post" id="processOrder">
+            <input type="hidden" asp-for="OrderId" />
             <button class="shadowbox"  type="submit" form="processOrder" formaction="?handler=CompleteOrder">Afronden Order</button>
         </form>
         
