@@ -196,6 +196,7 @@ namespace Sanibell_ProductionModule.Services
             var payload = new
             {
                 ProductieorderNummer = productieorderNummer,
+                ProductieorderAfsluiten = "JA",
                 ComponentenAfboeken = "JA",
                 EindproductenOpboeken = "JA"
             };
@@ -220,8 +221,8 @@ namespace Sanibell_ProductionModule.Services
                 throw new HttpRequestException($"Fout bij verwerken order: {response.StatusCode} - {responseBody}");
         }
 
-        // changing status to active ("ONDERHANDEN") in the ERP system
-        public async Task ProductionOrderActiveStatusAsync(string productieorderNummer)
+        // changing status in the ERP system
+        public async Task ProductionOrderStatusAsync(string productieorderNummer, string status)
         {
             var baseUrl = _config["PlannerERPSettings:BaseUrl"]?.TrimEnd('/');
             var token = _config["PlannerERPSettings:Status_Active_Order_Secret"];
@@ -232,7 +233,7 @@ namespace Sanibell_ProductionModule.Services
             var payload = new
             {
                 ProductieorderNummer = productieorderNummer,
-                Status = "ONDERHANDEN"
+                Status = status 
             };
 
             var json = JsonSerializer.Serialize(payload);
@@ -260,5 +261,6 @@ namespace Sanibell_ProductionModule.Services
             if (!response.IsSuccessStatusCode)
                 throw new HttpRequestException($"Fout bij verwerken order: {response.StatusCode} - {responseBody}");
         }
+
     }
 }

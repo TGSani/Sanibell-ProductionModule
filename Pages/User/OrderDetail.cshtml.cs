@@ -61,7 +61,7 @@ public class OrderDetailModel : PageModel
         ViewData["ShowBackButton"] = true;
         ViewData["ShowLogoutButton"] = false;
 
-        await _erpService.ProductionOrderActiveStatusAsync(OrderId.ToString());
+        await _erpService.ProductionOrderStatusAsync(OrderId.ToString(), "ONDERHANDEN");
         await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
 
         return RedirectToPage(new { this.OrderId });
@@ -71,11 +71,10 @@ public class OrderDetailModel : PageModel
     {
         ViewData["ShowBackButton"] = true;
         ViewData["ShowLogoutButton"] = false;
-
-        
+       
         await _erpService.ProductionOrderVerwerkenAsync(OrderId.ToString());
         await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
 
-        return RedirectToPage(new { this.OrderId });
+        return RedirectToPage("Order");
     }
 }
