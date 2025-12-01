@@ -243,15 +243,12 @@ namespace Sanibell_ProductionModule.Services
             var request = new HttpRequestMessage(HttpMethod.Post, url)
             {
                 Content = content
-            }
-            ;
+            };
+            
             request.Headers.TryAddWithoutValidation("ACCESS-TOKEN", token);
 
             var requestBody = await content.ReadAsStringAsync();
-            Console.WriteLine($"Request URL: {url}");
             Console.WriteLine($"Request Body: {requestBody}");
-            Console.WriteLine($"ACCESS-TOKEN: {token}");
-
 
             var response = await client.SendAsync(request);
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -261,6 +258,5 @@ namespace Sanibell_ProductionModule.Services
             if (!response.IsSuccessStatusCode)
                 throw new HttpRequestException($"Fout bij verwerken order: {response.StatusCode} - {responseBody}");
         }
-
     }
 }
