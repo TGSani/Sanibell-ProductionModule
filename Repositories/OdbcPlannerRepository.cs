@@ -107,8 +107,8 @@ public class OdbcPlannerRepository : IPlannerRepository
         LEFT JOIN Recommended AS R 
             ON R.ArtGid = ART.ArtGid
         WHERE ISNULL(RCP.RcptGeblokkeerd, 0) = 0
-        AND ISNULL(R.Recommended21Days, 0) > 0
-        AND ISNULL(R.Recommended21Days, 0) > (ISNULL(S.TotalCurrentStockNL, 0) + ISNULL(S.TotalCurrentStockPL, 0))
+        AND ISNULL(R.Recommended7Days, 0) > 0
+        AND ISNULL(R.Recommended7Days, 0) > (ISNULL(S.TotalCurrentStockNL, 0) + ISNULL(S.TotalCurrentStockPL, 0))
         """;
         using var conn = await OpenAsync(ct);
         var rows = await conn.QueryAsync<Planning>(GetAllSqlNew);

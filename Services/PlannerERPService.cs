@@ -30,7 +30,7 @@ namespace Sanibell_ProductionModule.Services
             // Building Payload 
             var payload = new
             {
-                ReceptCode = planning.ArticleDescription,
+                ReceptCode = planning.ArticleNumber,
                 AantalTeProduceren = planning.Amount,
                 Status = "INGEPLAND",
                 DefaultMagazijnComponenten = 1,

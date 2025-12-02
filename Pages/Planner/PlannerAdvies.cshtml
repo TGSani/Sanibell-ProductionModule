@@ -10,6 +10,8 @@
 }
 
 <form method="post" id="planningForm" class="form-wrapper">
+    @Html.AntiForgeryToken()
+
     <div class="form-header">
         <input class="search-field" type="text" id="searchInput" placeholder="Zoek in alle kolommen" />
     </div>
@@ -22,19 +24,12 @@
                 <th>maat</th>
                 <th>kleur</th>
                 <th>Huidige voorraad NL / PL</th>
-                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                        DateTime.Now.AddDays(7), // current week +7 days
-                                        CalendarWeekRule.FirstFourDayWeek,
-                                        DayOfWeek.Monday)</th>
-                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                        DateTime.Now.AddDays(14), // current week +14 days
-                                        CalendarWeekRule.FirstFourDayWeek,
-                                        DayOfWeek.Monday)</th>
-                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                        DateTime.Now.AddDays(21), // current week + 21 days
-                                        CalendarWeekRule.FirstFourDayWeek,
-                                        DayOfWeek.Monday)</th>
-                <th>Max. order aantal</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(7),
+                                        CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday)</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(14),
+                                        CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday)</th>
+                <th>Week @CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(21),
+                                        CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday)</th>
                 <th>Leverdatum</th>
                 <th>Aantal</th>
                 <th>Urgent</th>
@@ -44,39 +39,37 @@
         <tbody id="PlannerTableBody">
             @for (int i = 0; i < Model.Planners.Count; i++)
             {
+                var p = Model.Planners[i];
                 <tr>
-                    <td>@Model.Planners[i].ArticleNumber<input type="hidden" asp-for="Planners[i].ArticleNumber" /></td>
-                    <td>@Model.Planners[i].ArticleDescription<input type="hidden"asp-for="Planners[i].ArticleDescription" /></td>
-                    <td>@Model.Planners[i].Size<input type="hidden" asp-for="Planners[i].Size" /></td>
-                    <td>@Model.Planners[i].Color<input type="hidden" asp-for="Planners[i].Color" /></td>
-                    <td>@Model.Planners[i].TotalCurrentStockNL / @Model.Planners[i].TotalCurrentStockPL
-                        <input type="hidden" asp-for="Planners[i].TotalCurrentStockNL" />
-                        <input type="hidden" asp-for="Planners[i].TotalCurrentStockPL" />
+                    <td>@p.ArticleNumber<input type="hidden" name="Planners[@i].ArticleNumber" value="@p.ArticleNumber" /></td>
+                    <td>@p.ArticleDescription</td>
+                    <td>@p.Size</td>
+                    <td>@p.Color</td>
+                    <td>@p.TotalCurrentStockNL / @p.TotalCurrentStockPL</td>
+                    <td>@p.Recommended7Days</td>
+                    <td>@p.Recommended14Days</td>
+                    <td>@p.Recommended21Days</td>
+                    <td>
+                        <input type="date" name="Planners[@i].ReadyDate" value="@p.ReadyDate.ToString("yyyy-MM-dd")"
+                            min="@p.ReadyDate.ToString("yyyy-MM-dd")" />
                     </td>
-                    <td>@Model.Planners[i].Recommended7Days<input type="hidden" asp-for="Planners[i].Recommended7Days"/></td>
-                    <td>@Model.Planners[i].Recommended14Days<input type="hidden" asp-for="Planners[i].Recommended14Days"/></td>
-                    <td>@Model.Planners[i].Recommended21Days<input type="hidden" asp-for="Planners[i].Recommended21Days"/></td>
-                    <td>@Model.Planners[i].MaxPossibleProduction<input type="hidden"asp-for="Planners[i].MaxPossibleProduction" /></td>
-                    <td><input type="date" asp-for="Planners[i].ReadyDate" min="@DateTime.Today.ToString("yyyy-MM-dd")"/></td>
-                    <td><input type="number" asp-for="Planners[i].Amount" class="form-amount" min="@Model.Planners[i].Recommended7Days" max="@Model.Planners[i].MaxPossibleProduction" /></td>
-                    <td><input type="checkbox" asp-for="Planners[i].Urgency" class="urgency-item" /></td>
-                    <td><input type="checkbox" asp-for="Planners[i].Selection" class="selection-item" /></td>
+                    <td><input type="number" name="Planners[@i].Amount" value="@p.Amount" min="@(p.Recommended7Days)" /></td>
+                    <td><input type="checkbox" class="urgency-item" name="Planners[@i].Urgency" value="true" @(p.Urgency ? "checked" : "") /></td>
+                    <td><input type="checkbox" class="selection-item" name="Planners[@i].Selection" value="true" @(p.Selection ? "checked" : "") /></td>
                 </tr>
             }
         </tbody>
     </table>
 
     <div class="form-buttons">
-     @if (TempData["Message"] != null)
-    {
-        var type = TempData["MessageType"]?.ToString() ?? "info";
-        <div class="alert alert-@type">
-            @TempData["Message"]
-        </div>
-    }
+        @if (TempData["Message"] != null)
+        {
+            var type = TempData["MessageType"]?.ToString() ?? "info";
+            <div class="alert alert-@type">@TempData["Message"]</div>
+        }
         <div id="loading" style="display:none;" class="alert alert-info">Orders worden verzonden...</div>
-        <div id="validationErrors" style="display: none" class="alert alert-error"></div>
-        <button class="shadowbox" type="submit" form="planningForm">Orders Aanmaken</button>
+        <div id="validationErrors" style="display:none;" class="alert alert-error"></div>
+        <button class="shadowbox" type="submit">Orders Aanmaken</button>
         <button class="shadowbox" type="button" id="toggleAll">Selecteer alles</button>
     </div>
 </form>

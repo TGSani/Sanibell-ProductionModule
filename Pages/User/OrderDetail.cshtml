@@ -10,8 +10,6 @@
 }
 <div class="body">
     <div class="content-wrapper">
-        @foreach (var order in Model.OrderDetails)
-        {
             <table class="data-container">
                 <thead>
                     <tr>
@@ -21,24 +19,26 @@
                         <th>aantal</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="number-align">@order.OrderNummer</td>
-                        <td>@order.ReceptCode</td>
-                        <td>@order.Omschrijving</td>
-                        <td class="number-align">@order.Aantal</td>
-
-                    </tr>
-                </tbody>
+                   @foreach (var order in Model.OrderDetails)
+                    {
+                        <tbody>
+                            <tr>
+                                <td class="number-align">@order.OrderNummer</td>
+                                <td>@order.ReceptCode</td>
+                                <td>@order.Omschrijving</td>
+                                <td class="number-align">@order.Aantal</td>
+                            </tr>
+                        </tbody>
+                    }
             </table>
-            <div class="hidden">
+            @* <div class="hidden">
                     @foreach (var item in Model.OrderDetails)
                     {
                         <p>@order.Omschrijving</p>
                         <p>@order.OrderNummer</p>
                         <img src="data:image/png;base64,@item.BarcodeBase64" />
                     }
-            </div>
+            </div> *@
             <table class="data-container">
                 <thead>
                     <tr>
@@ -48,17 +48,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in order.Components)
+                    @foreach (var order in Model.OrderDetails)
                     {
-                        <tr>
-                            <td>@item.Naam</td>
-                            <td>@item.Aantal</td>
-                            <td>@item.LocatieCode</td>
-                        </tr>
+                        @foreach (var item in order.Components)
+                        {
+                            <tr>
+                                <td>@item.Naam</td>
+                                <td>@item.Aantal</td>
+                                <td>@item.LocatieCode</td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
-        }
     </div>
     <div class="btn-group">
         <form method = "post" id = "activeStatusOrder">

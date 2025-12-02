@@ -15,7 +15,7 @@ builder.Services.AddScoped<MenuTileService>();
 builder.Services.AddScoped<IPlannerErpService, PlannerErpService>();
 builder.Services.AddScoped<IOrderRepository, OdbcOrderRepository>(); // switch between "MockOrderRepository" and "OdbcOrderRepository" here
 builder.Services.AddScoped<IOrderDetailRepository, OdbcOrderDetailRepository>(); // switch between "MockOrderDetailRepository" and "OdbcOrderDetailRepository" here
-builder.Services.AddScoped<IPlannerRepository, MockPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
+builder.Services.AddScoped<IPlannerRepository, OdbcPlannerRepository>(); // switch between "MockPlannerRepository" and "OdbcPlannerRepository" here
 builder.Services.AddScoped<IBarCodeGenService, BarCodeGenService>();
 
 

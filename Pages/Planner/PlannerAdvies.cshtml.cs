@@ -69,6 +69,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             ViewData["ShowBackButton"] = true;
             ViewData["ShowLogoutButton"] = false;
 
@@ -90,13 +91,13 @@ namespace Sanibell_ProductionModule.Pages.Planner
             foreach (var order in selectedOrders)
             {
                 try
-                {   
+                {
                     var productieorderNummer = await _erpService.SendProductionOrderToErpAsync(order);
                     var gebruiker = User.Identity?.Name ?? "Onbekend";
                     var Urgency = order.Urgency;
-                    await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker); 
+                    await _erpService.ProductionOrderCreatedByAsync(productieorderNummer, gebruiker);
                     await _erpService.ProductionOrderUrgencyAsync(productieorderNummer, Urgency);
-                    await _erpService.UnlockProductionOrderAsync(productieorderNummer); 
+                    await _erpService.UnlockProductionOrderAsync(productieorderNummer);
                     successCount++;
                 }
                 catch (HttpRequestException ex)
@@ -108,7 +109,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
 
             if (failedOrders.Any())
             {
-                TempData["Message"] = 
+                TempData["Message"] =
                 $"{successCount} van de {selectedOrders.Count} order(s) succesvol verzonden." +
                 $" Fouten bij : {string.Join(", ", failedOrders)}";
                 TempData["MessageType"] = "error";
@@ -120,7 +121,7 @@ namespace Sanibell_ProductionModule.Pages.Planner
             }
 
             return RedirectToPage();
+
         }
     }
-
 }
