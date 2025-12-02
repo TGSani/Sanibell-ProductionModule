@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Sanibell_ProductionModule.Repositories.Interfaces;
-using Sanibell_ProductionModule.Models;
-using Sanibell_ProductionModule.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Sanibell_ProductionModule.Models;
+using Sanibell_ProductionModule.Repositories.Interfaces;
+using Sanibell_ProductionModule.Services;
 using Sanibell_ProductionModule.Services.Interfaces;
 
 
@@ -71,7 +71,7 @@ public class OrderDetailModel : PageModel
     {
         ViewData["ShowBackButton"] = true;
         ViewData["ShowLogoutButton"] = false;
-       
+
         await _erpService.ProductionOrderVerwerkenAsync(OrderId.ToString());
         await _erpService.UnlockProductionOrderAsync(OrderId.ToString());
 

@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Sanibell_ProductionModule.Repositories.Interfaces;
-using Sanibell_ProductionModule.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Sanibell_ProductionModule.Models;
+using Sanibell_ProductionModule.Repositories.Interfaces;
 
 namespace Sanibell_ProductionModule.Pages.User
 {
-    [Authorize (Policy = "RequireProductionRole")]
+    [Authorize(Policy = "RequireProductionRole")]
     public class OrderModel : PageModel
     {
         private readonly IOrderRepository _orders;

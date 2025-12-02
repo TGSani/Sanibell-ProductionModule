@@ -1,9 +1,7 @@
-using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sanibell_ProductionModule.Repositories.Interfaces;
-using Sanibell_ProductionModule.Services;
 using Sanibell_ProductionModule.Services.Interfaces;
 using Sanibell_ProductionModule.ViewModels;
 
